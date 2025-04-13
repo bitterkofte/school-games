@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { isCorrectHandler } from "../../redux/questionSlice";
+import { isCorrectHandler, selectedHandler } from "../../redux/questionSlice";
 
 import {
   DndContext,
@@ -32,12 +32,12 @@ const SortableItem = ({ id, text, correctId, index, showAnswer }) => {
       {...(!showAnswer ? attributes : {})} // Disable attributes when showAnswer is true
       {...(!showAnswer ? listeners : {})} // Disable listeners when showAnswer is true
       style={style}
-      className={`p-3 rounded-xl mb-2 text-white shadow select-none ${
+      className={`p-3 z-50 rounded-xl mb-2 text-white shadow select-none hover:cursor-grab active:cursor-grabbing ${
         !showAnswer
-          ? "bg-neutral-800"
+          ? "backdrop-blur-xl bg-neutral-300/10"
           : id === correctId
-          ? "border-green-600 bg-green-700"
-          : "border-red-500 bg-red-700"
+          ? "border-green-600 bg-green-700/70"
+          : "border-red-500 bg-red-700/60"
       }`}
     >
       {text}
@@ -70,6 +70,7 @@ const SortingQuestion = () => {
 
   useEffect(() => {
     dispatch(isCorrectHandler(isCorrect()));
+    dispatch(selectedHandler(order)); // Update selected options in the store
   }, [order]);
 
   return (

@@ -5,6 +5,22 @@ const initialState = {
   // theQuestion: {},
   questions: [
     {
+      type: "turkiye-province",
+      text: "Çanakkale ilimiz hangisidir?",
+      correctAnswers: "Çanakkale",
+    },
+    {
+      type: "multiple-choice",
+      text: "Aşağıdaki ülkelerden hangileri Avrupa kıtasında yer alır?",
+      options: [
+        { id: "a", text: "Fransa" },
+        { id: "b", text: "Brezilya" },
+        { id: "c", text: "Almanya" },
+        { id: "d", text: "Japonya" },
+      ],
+      correctAnswers: ["a", "c"],
+    },
+    {
       type: "sorting",
       text: "Aşağıda verilen sayıları küçükten büyüğe sıralayın.",
       options: [
@@ -27,17 +43,6 @@ const initialState = {
       correctAnswer: "b",
     },
     {
-      type: "multiple-choice",
-      text: "Aşağıdaki ülkelerden hangileri Avrupa kıtasında yer alır?",
-      options: [
-        { id: "a", text: "Fransa" },
-        { id: "b", text: "Brezilya" },
-        { id: "c", text: "Almanya" },
-        { id: "d", text: "Japonya" },
-      ],
-      correctAnswers: ["a", "c"],
-    },
-    {
       type: "single-choice",
       text: "Hangi gezegen Güneş Sistemi'nde en büyük gezegendir?",
       options: [
@@ -48,8 +53,14 @@ const initialState = {
       ],
       correctAnswer: "c",
     },
+    {
+      type: "true-false",
+      text: "Dünya yuvarlaktır.",
+      correctAnswer: "True", // Correct answer for the True/False question
+    },
   ],
   currentQuestionNo: 0,
+  selectedOptions: [],
   correctness: null,
   showAnswer: false,
 };
@@ -67,6 +78,9 @@ export const questionSlice = createSlice({
     incrementByAmount: (state, action) => {
       state.value += action.payload;
     },
+    selectedHandler: (state, action) => {
+      state.selectedOptions = action.payload;
+    },
     isCorrectHandler: (state, action) => {
       state.correctness = action.payload;
     },
@@ -77,6 +91,7 @@ export const questionSlice = createSlice({
       state.currentQuestionNo += 1;
       state.correctness = null;
       state.showAnswer = false;
+      state.selectedOptions = [];
     },
     resetHandler: (state) => {
       state.correctness = null;
@@ -94,6 +109,7 @@ export const {
   isCorrectHandler,
   showAnswerHandler,
   resetHandler,
+  selectedHandler,
 } = questionSlice.actions;
 
 export default questionSlice.reducer;

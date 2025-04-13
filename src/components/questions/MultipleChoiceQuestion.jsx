@@ -1,61 +1,53 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { isCorrectHandler } from "../../redux/questionSlice";
+import { isCorrectHandler, selectedHandler } from "../../redux/questionSlice";
+import { optionStyles } from "../../styles/optionStyles";
 
 const MultipleChoiceQuestion = () => {
-  const [selected, setSelected] = useState([]);
-  const quiz = useSelector((state) => state.question);
+  // const [selected, setSelected] = useState([]);
+  const { questions, showAnswer, currentQuestionNo, selectedOptions } =
+    useSelector((state) => state.question);
   const dispatch = useDispatch();
 
   const toggleOption = (id) => {
-    if (quiz.showAnswer) return; // prevent changing after answer shown
-    setSelected((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+    if (showAnswer) return; // prevent changing after answer shown
+    // setSelected((prev) =>
+    //   prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+    // );
+    dispatch(
+      selectedHandler(
+        selectedOptions.includes(id)
+          ? selectedOptions.filter((x) => x !== id)
+          : [...selectedOptions, id]
+      )
     );
   };
 
   const isCorrect = () =>
-    selected.length ===
-      quiz.questions[quiz.currentQuestionNo].correctAnswers.length &&
-    selected.every((val) =>
-      quiz.questions[quiz.currentQuestionNo].correctAnswers.includes(val)
+    selectedOptions.length ===
+      questions[currentQuestionNo].correctAnswers.length &&
+    selectedOptions.every((val) =>
+      questions[currentQuestionNo].correctAnswers.includes(val)
     );
 
   useEffect(() => {
     dispatch(isCorrectHandler(isCorrect()));
-  }, [selected]);
+  }, [selectedOptions]);
 
   return (
     <div className="space-y-2 select-none">
-      {quiz.questions[quiz.currentQuestionNo].options.map((opt) => {
-        const isSelected = selected.includes(opt.id);
-        const isCorrectAnswer = quiz.questions[
-          quiz.currentQuestionNo
+      {questions[currentQuestionNo].options.map((opt) => {
+        const isSelected = selectedOptions.includes(opt.id);
+        const isCorrectAnswer = questions[
+          currentQuestionNo
         ].correctAnswers.includes(opt.id);
 
-        const base = "w-full p-3 border-2 rounded-xl transition";
-        const hoverStyle = quiz.showAnswer
-          ? "cursor-not-allowed"
-          : "cursor-pointer hover:bg-sky-900";
-        const selectedStyle =
-          isSelected && !quiz.showAnswer ? "bg-sky-700 border-sky-500" : "";
-        const correctStyle =
-          quiz.showAnswer && isCorrectAnswer && isSelected
-            ? "border-green-600 bg-green-700 font-bold"
-            : "";
-        const incorrectStyle =
-          quiz.showAnswer && isSelected && !isCorrectAnswer
-            ? "border-red-500 bg-red-700"
-            : "";
-        const correct =
-          quiz.showAnswer && isCorrectAnswer && !isSelected
-            ? "border-green-600 text-green-600 font-bold"
-            : "";
+        const optS = optionStyles(showAnswer, isSelected, isCorrectAnswer);
 
         return (
           <div
             key={opt.id}
-            className={`${base} ${hoverStyle} ${selectedStyle} ${correctStyle} ${correct} ${incorrectStyle}`}
+            className={`${optS.base} ${optS.hoverStyle} ${optS.selectedStyle} ${optS.correctStyle} ${optS.correct} ${optS.incorrectStyle}`}
             onClick={() => toggleOption(opt.id)}
           >
             {opt.text}

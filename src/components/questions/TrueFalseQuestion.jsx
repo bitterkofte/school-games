@@ -3,15 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { isCorrectHandler, selectedHandler } from "../../redux/questionSlice";
 import { optionStyles } from "../../styles/optionStyles";
 
-const SingleChoiceQuestion = () => {
+const TrueFalseQuestion = () => {
   // const [selected, setSelected] = useState(null);
   const { questions, showAnswer, currentQuestionNo, selectedOptions } =
     useSelector((state) => state.question);
   const dispatch = useDispatch();
 
-  const handleSelect = (id) => {
-    // if (!showAnswer) setSelected(id);
-    if (!showAnswer) dispatch(selectedHandler([id]));
+  const handleSelect = (value) => {
+    // if (!showAnswer) setSelected(value);
+    if (!showAnswer) dispatch(selectedHandler(value));
   };
 
   useEffect(() => {
@@ -20,25 +20,24 @@ const SingleChoiceQuestion = () => {
         selectedOptions === questions[currentQuestionNo].correctAnswer
       )
     );
-    // dispatch(selectedHandler(selected)); // Update selected options in the store
-  }, [selectedOptions]);
+  }, [selectedOptions, currentQuestionNo, dispatch, showAnswer]);
 
   return (
     <div className="space-y-2">
-      {questions[currentQuestionNo].options.map((opt) => {
-        const isSelected = selectedOptions[0] === opt.id;
+      {["True", "False"].map((opt) => {
+        const isSelected = selectedOptions === opt;
         const isCorrectAnswer =
-          questions[currentQuestionNo].correctAnswer === opt.id;
+          questions[currentQuestionNo].correctAnswer === opt;
 
         const optS = optionStyles(showAnswer, isSelected, isCorrectAnswer);
 
         return (
           <div
-            key={opt.id}
+            key={opt}
             className={`${optS.base} ${optS.hoverStyle} ${optS.selectedStyle} ${optS.correctStyle} ${optS.incorrectStyle} ${optS.correct}`}
-            onClick={() => handleSelect(opt.id)}
+            onClick={() => handleSelect(opt)}
           >
-            {opt.text}
+            {opt}
           </div>
         );
       })}
@@ -46,4 +45,4 @@ const SingleChoiceQuestion = () => {
   );
 };
 
-export default SingleChoiceQuestion;
+export default TrueFalseQuestion;
