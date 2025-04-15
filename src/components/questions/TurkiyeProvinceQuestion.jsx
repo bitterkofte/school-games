@@ -3,51 +3,53 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectedHandler } from "../../redux/questionSlice";
 
 const TurkiyeProvinceQuestion = () => {
-  const [province, setProvince] = useState("");
+  // const [province, setProvince] = useState("");
   const { questions, showAnswer, currentQuestionNo, selectedOptions } =
     useSelector((state) => state.question);
   const dispatch = useDispatch();
-  const provinceStyles =
-    "hover:fill-amber-400 ?stroke-black transition-all duration-200";
+  const provinceStyles = `${
+    !showAnswer && "hover:fill-gray-500"
+  } ?stroke-black transition-all duration-200`;
 
   const handlePathClick = (event) => {
-    // Get the 'name' attribute of the clicked path
+    if (showAnswer) return; // prevent changing after answer shown
     const provinceName = event.target.getAttribute("name");
-    if (provinceName) {
-      // alert(`Province Name: ${provinceName}`);
-      setProvince(provinceName);
+    if (provinceName === selectedOptions[0]) {
+      // setProvince("");
+      dispatch(selectedHandler([]));
+      return;
+    } else if (provinceName) {
+      // setProvince(provinceName);
       dispatch(selectedHandler([provinceName])); // Update selected options in the store
-      // event.target.setAttribute("fill", "#fbbf24"); // Change color on click
       event.target.setAttribute("fill", ""); // Change color on click
     } else {
-      // alert("No name attribute found for this path.");
-      setProvince("");
+      // setProvince("");
       dispatch(selectedHandler([])); // Clear selected options in the store
     }
   };
 
   const getProvinceFill = (provinceName) => {
-    return province === provinceName ? "fill-red-500 hover:fill-red-400" : "";
+    return selectedOptions[0] === provinceName
+      ? `fill-amber-500 ${!showAnswer ? "hover:fill-amber-400" : ""}`
+      : "";
   };
 
   return (
-    <div className="border-2 ">
-      <p>Çanakkale</p>
-      <div className="w-full border-2 border-red-500 scale-50 flex items-center justify-center">
+    <div className="w-full">
+      {/* <p>{selectedOptions[0]}</p> */}
+      <div className="flex items-center justify-center w-full">
         <svg
-          baseprofile="tiny"
+          className="w-full h-auto"
+          viewBox="0 0 1000 422"
+          baseProfile="tiny"
           fill="#6f9c76"
-          height="422"
           stroke="#ffffff"
           stroke-linecap="round"
           stroke-linejoin="round"
           stroke-width=".5"
           version="1.2"
-          // viewbox="0 0 1000 422"
-          width="1000"
           xmlns="http://www.w3.org/2000/svg"
           onClick={handlePathClick}
-          className=""
         >
           <g id="features">
             <path

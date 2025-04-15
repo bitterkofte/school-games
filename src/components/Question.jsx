@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MultipleChoiceQuestion from "./questions/MultipleChoiceQuestion";
 import SingleChoiceQuestion from "./questions/SingleChoiceQuestion";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,14 +6,30 @@ import { nextQuestionHandler, showAnswerHandler } from "../redux/questionSlice";
 import SortingQuestion from "./questions/SortingQuestion";
 import TrueFalseQuestion from "./questions/TrueFalseQuestion";
 import TurkiyeProvinceQuestion from "./questions/TurkiyeProvinceQuestion";
+import { toast } from "sonner";
 
 const Question = () => {
   const quiz = useSelector((state) => state.question);
   const dispatch = useDispatch();
+  const toastRef = useRef(null);
 
   const handleSave = () => {
     dispatch(showAnswerHandler(true));
+    if (toastRef.current === null) {
+      toastRef.current = quiz.correctness
+        ? toast.success("Doğru cevap!", {
+            duration: Infinity,
+          })
+        : toast.error("Yanlış cevap!", {
+            duration: Infinity,
+          });
+    }
   };
+  // useEffect(() => {
+  //   if (state < quiz.currentQuestionNo && toastId) {
+  //     toast.dismiss(toastId);
+  //   }
+  // }, [quiz.currentQuestionNo]);
 
   const QuestionSelector = () => {
     switch (quiz.questions[quiz.currentQuestionNo].type) {
@@ -39,43 +55,18 @@ const Question = () => {
 
       {QuestionSelector()}
 
-      {/* <button
-        onClick={handleSave}
-        className="mt-4 px-4 py-2 text-white rounded bg-orange-900 hover:bg-orange-700 disabled:opacity-50 cursor-pointer transition-all"
-        disabled={quiz.showAnswer || quiz.selectedOptions.length === 0}
-      >
-        Save
-      </button>
-      <button
-        onClick={() => dispatch(nextQuestionHandler())}
-        className="mt-4 px-4 py-2 text-white rounded bg-orange-900 hover:bg-orange-700 disabled:opacity-50 cursor-pointer transition-all"
-        disabled={!quiz.showAnswer}
-      >
-        Next
-      </button> */}
-
       <div className=" h-12 mt-8">
-        {/* {!quiz.showAnswer ? (
-          <button
-            onClick={handleSave}
-            disabled={quiz.selectedOptions.length === 0}
-            className="absolute left-1/2 -translate-x-1/2 px-6 py-2 text-white bg-orange-900 hover:bg-orange-700 disabled:opacity-50 rounded transition-all duration-500"
-          >
-            Save
-          </button>
-        ) : (
-          <button
-            onClick={() => dispatch(nextQuestionHandler())}
-            className="absolute right-0 px-6 py-2 text-white bg-orange-900 hover:bg-orange-700 rounded transition-all duration-500 translate-x-0 opacity-100"
-          >
-            Next
-          </button>
-        )} */}
         <button
           onClick={
             !quiz.showAnswer
               ? handleSave
-              : () => dispatch(nextQuestionHandler())
+              : () => {
+                  dispatch(nextQuestionHandler());
+                  if (toastRef.current !== null) {
+                    toast.dismiss(toastRef.current);
+                    toastRef.current = null;
+                  }
+                }
           }
           // onClick={() => dispatch(showAnswerHandler(!quiz.showAnswer))}
           disabled={quiz.selectedOptions.length === 0}

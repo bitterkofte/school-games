@@ -1,4 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit";
+import { toast } from "sonner";
 
 const initialState = {
   value: 0,
@@ -80,9 +81,15 @@ export const questionSlice = createSlice({
     },
     selectedHandler: (state, action) => {
       state.selectedOptions = action.payload;
+      if (
+        state.selectedOptions[0] ===
+        state.questions[state.currentQuestionNo].correctAnswers
+      )
+        state.correctness = true;
     },
     isCorrectHandler: (state, action) => {
       state.correctness = action.payload;
+      // if (action.payload) toast.success("Doğru cevap!");
     },
     showAnswerHandler: (state, action) => {
       state.showAnswer = action.payload;
