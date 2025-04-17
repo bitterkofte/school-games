@@ -23,24 +23,24 @@ const MultipleChoiceQuestion = () => {
     );
   };
 
-  const isCorrect = () =>
-    selectedOptions.length ===
-      questions[currentQuestionNo].correctAnswers.length &&
-    selectedOptions.every((val) =>
-      questions[currentQuestionNo].correctAnswers.includes(val)
-    );
+  // const isCorrect = () =>
+  //   selectedOptions.length ===
+  //     questions[currentQuestionNo].correctAnswers.length &&
+  //   selectedOptions.every((val) =>
+  //     questions[currentQuestionNo].correctAnswers.includes(val)
+  //   );
 
-  useEffect(() => {
-    dispatch(isCorrectHandler(isCorrect()));
-  }, [selectedOptions]);
+  // useEffect(() => {
+  //   dispatch(isCorrectHandler(isCorrect()));
+  // }, [selectedOptions]);
 
   return (
     <div className="space-y-2 select-none">
       {questions[currentQuestionNo].options.map((opt) => {
         const isSelected = selectedOptions.includes(opt.id);
-        const isCorrectAnswer = questions[
-          currentQuestionNo
-        ].correctAnswers.includes(opt.id);
+        const isCorrectAnswer = questions[currentQuestionNo].answer.includes(
+          opt.id
+        );
 
         const optS = optionStyles(showAnswer, isSelected, isCorrectAnswer);
 

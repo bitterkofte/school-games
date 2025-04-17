@@ -1,14 +1,26 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 import { toast } from "sonner";
+import { answerChecker } from "../functions/answerChecker";
 
 const initialState = {
   value: 0,
   // theQuestion: {},
   questions: [
     {
+      type: "single-choice",
+      text: "Türkiye'nin başkenti neresidir?",
+      options: [
+        { id: "a", text: "İstanbul" },
+        { id: "b", text: "Ankara" },
+        { id: "c", text: "İzmir" },
+        { id: "d", text: "Bursa" },
+      ],
+      answer: "b",
+    },
+    {
       type: "turkiye-province",
       text: "Çanakkale ilimiz hangisidir?",
-      correctAnswers: "Çanakkale",
+      answer: "Çanakkale",
     },
     {
       type: "multiple-choice",
@@ -19,7 +31,7 @@ const initialState = {
         { id: "c", text: "Almanya" },
         { id: "d", text: "Japonya" },
       ],
-      correctAnswers: ["a", "c"],
+      answer: ["a", "c"],
     },
     {
       type: "sorting",
@@ -30,18 +42,7 @@ const initialState = {
         { id: "3", text: "Dört" },
         { id: "4", text: "İki" },
       ],
-      correctOrder: ["2", "4", "1", "3"], // IDs in correct sequence
-    },
-    {
-      type: "single-choice",
-      text: "Türkiye'nin başkenti neresidir?",
-      options: [
-        { id: "a", text: "İstanbul" },
-        { id: "b", text: "Ankara" },
-        { id: "c", text: "İzmir" },
-        { id: "d", text: "Bursa" },
-      ],
-      correctAnswer: "b",
+      answer: ["2", "4", "1", "3"], // IDs in correct sequence
     },
     {
       type: "single-choice",
@@ -52,14 +53,15 @@ const initialState = {
         { id: "c", text: "Jüpiter" },
         { id: "d", text: "Satürn" },
       ],
-      correctAnswer: "c",
+      answer: "c",
     },
     {
       type: "true-false",
       text: "Dünya yuvarlaktır.",
-      correctAnswer: "True", // Correct answer for the True/False question
+      answer: "True", // Correct answer for the True/False question
     },
   ],
+  points: 0,
   currentQuestionNo: 0,
   selectedOptions: [],
   correctness: null,
@@ -81,14 +83,19 @@ export const questionSlice = createSlice({
     },
     selectedHandler: (state, action) => {
       state.selectedOptions = action.payload;
-      if (
-        state.selectedOptions[0] ===
-        state.questions[state.currentQuestionNo].correctAnswers
-      )
-        state.correctness = true;
+      state.correctness = answerChecker(
+        state.questions[state.currentQuestionNo].type,
+        action.payload,
+        state.questions[state.currentQuestionNo].answer
+      );
+      // if (
+      //   state.selectedOptions[0] ===
+      //   state.questions[state.currentQuestionNo].correctAnswers
+      // )
+      //   state.correctness = true;
     },
     isCorrectHandler: (state, action) => {
-      state.correctness = action.payload;
+      // state.correctness = action.payload;
       // if (action.payload) toast.success("Doğru cevap!");
     },
     showAnswerHandler: (state, action) => {
@@ -104,6 +111,9 @@ export const questionSlice = createSlice({
       state.correctness = null;
       state.showAnswer = false;
     },
+    pointHandler: (state, action) => {
+      state.points += action.payload;
+    },
   },
 });
 
@@ -117,6 +127,7 @@ export const {
   showAnswerHandler,
   resetHandler,
   selectedHandler,
+  pointHandler,
 } = questionSlice.actions;
 
 export default questionSlice.reducer;

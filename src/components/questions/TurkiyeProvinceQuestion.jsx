@@ -1,14 +1,18 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectedHandler } from "../../redux/questionSlice";
 
 const TurkiyeProvinceQuestion = () => {
   // const [province, setProvince] = useState("");
-  const { questions, showAnswer, currentQuestionNo, selectedOptions } =
-    useSelector((state) => state.question);
+  const {
+    questions,
+    showAnswer,
+    currentQuestionNo,
+    selectedOptions,
+    correctness,
+  } = useSelector((state) => state.question);
   const dispatch = useDispatch();
   const provinceStyles = `${
-    !showAnswer && "hover:fill-gray-500"
+    !showAnswer && "hover:fill-gray-400"
   } ?stroke-black transition-all duration-200`;
 
   const handlePathClick = (event) => {
@@ -30,7 +34,13 @@ const TurkiyeProvinceQuestion = () => {
 
   const getProvinceFill = (provinceName) => {
     return selectedOptions[0] === provinceName
-      ? `fill-amber-500 ${!showAnswer ? "hover:fill-amber-400" : ""}`
+      ? ` ${
+          !showAnswer
+            ? "fill-sky-600 hover:fill-sky-400"
+            : correctness
+            ? "fill-green-600"
+            : "fill-red-500"
+        }`
       : "";
   };
 
@@ -42,7 +52,8 @@ const TurkiyeProvinceQuestion = () => {
           className="w-full h-auto"
           viewBox="0 0 1000 422"
           baseProfile="tiny"
-          fill="#6f9c76"
+          // fill="#6f9c76"
+          fill="#6a7282"
           stroke="#ffffff"
           stroke-linecap="round"
           stroke-linejoin="round"

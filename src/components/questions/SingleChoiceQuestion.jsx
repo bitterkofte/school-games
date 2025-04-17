@@ -14,21 +14,20 @@ const SingleChoiceQuestion = () => {
     if (!showAnswer) dispatch(selectedHandler([id]));
   };
 
-  useEffect(() => {
-    dispatch(
-      isCorrectHandler(
-        selectedOptions === questions[currentQuestionNo].correctAnswer
-      )
-    );
-    // dispatch(selectedHandler(selected)); // Update selected options in the store
-  }, [selectedOptions]);
+  // useEffect(() => {
+  //   dispatch(
+  //     isCorrectHandler(
+  //       selectedOptions[0] === questions[currentQuestionNo].correctAnswer
+  //     )
+  //   );
+  //   // dispatch(selectedHandler(selected)); // Update selected options in the store
+  // }, [selectedOptions]);
 
   return (
     <div className="space-y-2">
       {questions[currentQuestionNo].options.map((opt) => {
         const isSelected = selectedOptions[0] === opt.id;
-        const isCorrectAnswer =
-          questions[currentQuestionNo].correctAnswer === opt.id;
+        const isCorrectAnswer = questions[currentQuestionNo].answer === opt.id;
 
         const optS = optionStyles(showAnswer, isSelected, isCorrectAnswer);
 

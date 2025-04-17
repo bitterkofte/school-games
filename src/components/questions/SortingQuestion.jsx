@@ -65,11 +65,11 @@ const SortingQuestion = () => {
     }
   };
 
-  const isCorrect = () =>
-    order.every((id, i) => id === question.correctOrder[i]);
+  // const isCorrect = () =>
+  //   order.every((id, i) => id === question.answer[i]);
 
   useEffect(() => {
-    dispatch(isCorrectHandler(isCorrect()));
+    // dispatch(isCorrectHandler(isCorrect()));
     dispatch(selectedHandler(order)); // Update selected options in the store
   }, [order]);
 
@@ -82,7 +82,7 @@ const SortingQuestion = () => {
       <SortableContext items={order} strategy={verticalListSortingStrategy}>
         {order.map((id, index) => {
           const option = question.options.find((o) => o.id === id);
-          const correctId = question.correctOrder[index];
+          const correctId = question.answer[index];
 
           return (
             <SortableItem

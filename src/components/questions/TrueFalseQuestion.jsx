@@ -14,20 +14,19 @@ const TrueFalseQuestion = () => {
     if (!showAnswer) dispatch(selectedHandler(value));
   };
 
-  useEffect(() => {
-    dispatch(
-      isCorrectHandler(
-        selectedOptions === questions[currentQuestionNo].correctAnswer
-      )
-    );
-  }, [selectedOptions, currentQuestionNo, dispatch, showAnswer]);
+  // useEffect(() => {
+  //   dispatch(
+  //     isCorrectHandler(
+  //       selectedOptions === questions[currentQuestionNo].correctAnswer
+  //     )
+  //   );
+  // }, [selectedOptions, currentQuestionNo, dispatch, showAnswer]);
 
   return (
     <div className="space-y-2">
       {["True", "False"].map((opt) => {
         const isSelected = selectedOptions === opt;
-        const isCorrectAnswer =
-          questions[currentQuestionNo].correctAnswer === opt;
+        const isCorrectAnswer = questions[currentQuestionNo].answer === opt;
 
         const optS = optionStyles(showAnswer, isSelected, isCorrectAnswer);
 
@@ -37,7 +36,7 @@ const TrueFalseQuestion = () => {
             className={`${optS.base} ${optS.hoverStyle} ${optS.selectedStyle} ${optS.correctStyle} ${optS.incorrectStyle} ${optS.correct}`}
             onClick={() => handleSelect(opt)}
           >
-            {opt}
+            {opt === "True" ? "Doğru" : "Yanlış"}
           </div>
         );
       })}
