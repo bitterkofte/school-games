@@ -7,7 +7,7 @@ function App() {
     <>
       <div className="bg-neutral-900 text-white">
         <BackgroundParticles />
-        <Toaster position="top-center" richColors />
+        <Toaster position="top-center" richColors className="max-w-[80%]" />
         <QuestionLayout />
       </div>
     </>

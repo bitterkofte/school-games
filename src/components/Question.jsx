@@ -77,15 +77,9 @@ const Question = () => {
           disabled={selectedOptions.length === 0}
           className={` ${
             !showAnswer
-              ? // " lg:left-1/2 lg:-translate-x-1/2"
-                // : "lg:left-[34.7rem] lg:translate-x-0"
-                //   "right-5 lg:right-1 translate-x-0"
-                // : "right-1/4 lg:right-1/2 -translate-x-1/2"
-                "right-1/2 translate-x-1/2"
-              : "right-7 lg:right-16"
-            // "right-1/2 translate-x-0"
-            // : "right-5 -translate-x-1/2"
-          } absolute px-6 py-2 text-white bg-orange-900 hover:bg-orange-700 disabled:opacity-50 rounded transform ease-in-out transition-all duration-500 hover:cursor-pointer disabled:cursor-not-allowed`}
+              ? "right-1/2 translate-x-1/2 bg-sky-700 hover:bg-sky-800 disabled:hover:bg-sky-700"
+              : "right-7 lg:right-16 bg-green-600 hover:bg-green-700 disabled:hover:bg-green-600"
+          } absolute px-6 py-2 text-white disabled:opacity-50 rounded transform ease-in-out transition-all duration-500 hover:cursor-pointer disabled:cursor-not-allowed`}
         >
           {!showAnswer ? "Kontrol Et" : "Sonraki"}
         </button>
