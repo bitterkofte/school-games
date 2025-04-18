@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { selectedHandler } from "../../redux/questionSlice";
+import { useEffect, useState } from "react";
 
 const TurkiyeProvinceQuestion = () => {
   // const [province, setProvince] = useState("");
@@ -14,6 +15,12 @@ const TurkiyeProvinceQuestion = () => {
   const provinceStyles = `${
     !showAnswer && "hover:fill-gray-400"
   } ?stroke-black transition-all duration-200`;
+
+  const [liveBG, setLiveBG] = useState(true);
+  useEffect(() => {
+    const interval = setInterval(() => setLiveBG((prev) => !prev), 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handlePathClick = (event) => {
     if (showAnswer) return; // prevent changing after answer shown
@@ -41,7 +48,13 @@ const TurkiyeProvinceQuestion = () => {
             ? "fill-green-600"
             : "fill-red-500"
         }`
-      : "";
+      : `duration-500 ease-in-out ${
+          provinceName !== questions[currentQuestionNo].answer || !showAnswer
+            ? ""
+            : liveBG
+            ? "fill-green-700"
+            : "fill-green-800"
+        }`;
   };
 
   return (

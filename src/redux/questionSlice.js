@@ -69,17 +69,11 @@ const initialState = {
 };
 
 export const questionSlice = createSlice({
-  name: "counter",
+  name: "quiz",
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
-    decrement: (state) => {
-      state.value -= 1;
-    },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload;
+    questionsHandler: (state, action) => {
+      state.questions = action.payload;
     },
     selectedHandler: (state, action) => {
       state.selectedOptions = action.payload;
@@ -88,15 +82,6 @@ export const questionSlice = createSlice({
         action.payload,
         state.questions[state.currentQuestionNo].answer
       );
-      // if (
-      //   state.selectedOptions[0] ===
-      //   state.questions[state.currentQuestionNo].correctAnswers
-      // )
-      //   state.correctness = true;
-    },
-    isCorrectHandler: (state, action) => {
-      // state.correctness = action.payload;
-      // if (action.payload) toast.success("Doğru cevap!");
     },
     showAnswerHandler: (state, action) => {
       state.showAnswer = action.payload;
@@ -110,6 +95,10 @@ export const questionSlice = createSlice({
     resetHandler: (state) => {
       state.correctness = null;
       state.showAnswer = false;
+      state.currentQuestionNo = 0;
+      state.selectedOptions = [];
+      state.points = 0;
+      state.questions = initialState.questions;
     },
     pointHandler: (state, action) => {
       state.points += action.payload;
@@ -119,11 +108,8 @@ export const questionSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
-  increment,
-  decrement,
-  incrementByAmount,
+  questionsHandler,
   nextQuestionHandler,
-  isCorrectHandler,
   showAnswerHandler,
   resetHandler,
   selectedHandler,

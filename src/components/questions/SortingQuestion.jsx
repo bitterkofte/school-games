@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { isCorrectHandler, selectedHandler } from "../../redux/questionSlice";
+import { selectedHandler } from "../../redux/questionSlice";
 
 import {
   DndContext,

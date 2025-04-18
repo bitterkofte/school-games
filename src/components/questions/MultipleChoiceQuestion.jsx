@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { isCorrectHandler, selectedHandler } from "../../redux/questionSlice";
+import { selectedHandler } from "../../redux/questionSlice";
 import { optionStyles } from "../../styles/optionStyles";
 
 const MultipleChoiceQuestion = () => {
@@ -29,10 +29,6 @@ const MultipleChoiceQuestion = () => {
   //   selectedOptions.every((val) =>
   //     questions[currentQuestionNo].correctAnswers.includes(val)
   //   );
-
-  // useEffect(() => {
-  //   dispatch(isCorrectHandler(isCorrect()));
-  // }, [selectedOptions]);
 
   return (
     <div className="space-y-2 select-none">

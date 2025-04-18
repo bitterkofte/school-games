@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { isCorrectHandler, selectedHandler } from "../../redux/questionSlice";
+import { selectedHandler } from "../../redux/questionSlice";
 import { optionStyles } from "../../styles/optionStyles";
 
 const TrueFalseQuestion = () => {
