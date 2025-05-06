@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { selectedHandler } from "../../redux/questionSlice";
-import { useEffect, useState } from "react";
 
 const TurkiyeProvinceQuestion = () => {
   // const [province, setProvince] = useState("");
@@ -15,12 +14,6 @@ const TurkiyeProvinceQuestion = () => {
   const provinceStyles = `${
     !showAnswer && "hover:fill-gray-400"
   } ?stroke-black transition-all duration-200`;
-
-  const [liveBG, setLiveBG] = useState(true);
-  useEffect(() => {
-    const interval = setInterval(() => setLiveBG((prev) => !prev), 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   const handlePathClick = (event) => {
     if (showAnswer) return; // prevent changing after answer shown
@@ -48,12 +41,10 @@ const TurkiyeProvinceQuestion = () => {
             ? "fill-green-600"
             : "fill-red-500"
         }`
-      : `duration-500 ease-in-out ${
-          provinceName !== questions[currentQuestionNo].answer || !showAnswer
-            ? ""
-            : liveBG
-            ? "fill-green-700"
-            : "fill-green-800"
+      : `${
+          provinceName === questions[currentQuestionNo].answer && showAnswer
+            ? "animate-pulse-correct-province"
+            : ""
         }`;
   };
 
@@ -392,7 +383,7 @@ const TurkiyeProvinceQuestion = () => {
               className={`${provinceStyles} ${getProvinceFill("Nigde")}`}
               d="M478.9 310.3l-3.3-0.8-3.3 1.4-1.5 0.9-1.6 0.6-3.5 0.1-1.1-2.6-1.8-1.9-1.2-1-1.8-2.6 0-1.7 0.3-2.7 0.7-1.6 1.1-1.3 1.1-3.1-0.5-3.4-1.5-2.2-1.9-1.8-1.7-2.9-1.8-2.6-2.2-1.2-2.3-0.9-1.5-2.4-0.7-3.1 15.7-23.4 2.7 0.4 4.1-1.2 2.7-0.1 1.3 0.7 2 2 2.4 0.7 5-1.9 3.3 9.2 2.8 2.9 7.7 0.1 1.3 4.1-0.5 2.5 0.3 2.6 0.9 2.1 0.5 2.2-2.2 1.4-0.2 3.1-0.8 3.6-6.2 6.3-4.7 0.8-2.4-0.8-2.4-0.2-1.5 2.2 0.2 3 1.2 3 0.3 1.7-0.7 2.5-0.7 0.7-0.7 0.6-1.2 1.9-0.2 1.3 0 2.8z"
               id="TR51"
-              name="Nigde"
+              name="Niğde"
             ></path>
             <path
               className={`${provinceStyles} ${getProvinceFill("Kayseri")}`}

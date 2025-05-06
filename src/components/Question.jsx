@@ -12,6 +12,7 @@ import TrueFalseQuestion from "./questions/TrueFalseQuestion";
 import TurkiyeProvinceQuestion from "./questions/TurkiyeProvinceQuestion";
 import { toast } from "sonner";
 import { windowSelector } from "../redux/windowSlice";
+import { ImExit } from "react-icons/im";
 
 const Question = () => {
   const {
@@ -56,7 +57,7 @@ const Question = () => {
   return (
     <div className="py-5 px-7 lg:py-10 lg:px-16 w-full lg:w-[45rem] mx-auto backdrop-blur-sm bg-white/10 rounded-xl shadow-2xl space-y-4">
       <h2 className="text-3xl font-semibold">
-        {questions[currentQuestionNo].text}
+        {currentQuestionNo + 1}. {questions[currentQuestionNo].text}
       </h2>
 
       {QuestionSelector()}
@@ -95,6 +96,16 @@ const Question = () => {
             : "Bitir"}
         </button>
       </div>
+      {/* <div
+        onClick={() => {
+          toast.dismiss(toastRef.current);
+          toastRef.current = null;
+          dispatch(windowSelector("results"));
+        }}
+        className="fixed bottom-5 left-5 p-2 py-3 pl-3 text-3xl bg-red-500 rounded-xl opacity-70 hover:opacity-100 cursor-pointer z-50 transition-all duration-200"
+      >
+        <ImExit />
+      </div> */}
     </div>
   );
 };

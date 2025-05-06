@@ -1,66 +1,12 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 import { toast } from "sonner";
 import { answerChecker } from "../functions/answerChecker";
+import { whoeleQuestions } from "../data/wholeQuestions";
 
 const initialState = {
   value: 0,
   // theQuestion: {},
-  questions: [
-    {
-      type: "single-choice",
-      text: "Türkiye'nin başkenti neresidir?",
-      options: [
-        { id: "a", text: "İstanbul" },
-        { id: "b", text: "Ankara" },
-        { id: "c", text: "İzmir" },
-        { id: "d", text: "Bursa" },
-      ],
-      answer: "b",
-    },
-    {
-      type: "turkiye-province",
-      text: "Çanakkale ilimiz hangisidir?",
-      answer: "Çanakkale",
-    },
-    {
-      type: "multiple-choice",
-      text: "Aşağıdaki ülkelerden hangileri Avrupa kıtasında yer alır?",
-      options: [
-        { id: "a", text: "Fransa" },
-        { id: "b", text: "Brezilya" },
-        { id: "c", text: "Almanya" },
-        { id: "d", text: "Japonya" },
-      ],
-      answer: ["a", "c"],
-    },
-    {
-      type: "sorting",
-      text: "Aşağıda verilen sayıları küçükten büyüğe sıralayın.",
-      options: [
-        { id: "1", text: "Üç" },
-        { id: "2", text: "Bir" },
-        { id: "3", text: "Dört" },
-        { id: "4", text: "İki" },
-      ],
-      answer: ["2", "4", "1", "3"], // IDs in correct sequence
-    },
-    {
-      type: "single-choice",
-      text: "Hangi gezegen Güneş Sistemi'nde en büyük gezegendir?",
-      options: [
-        { id: "a", text: "Mars" },
-        { id: "b", text: "Venüs" },
-        { id: "c", text: "Jüpiter" },
-        { id: "d", text: "Satürn" },
-      ],
-      answer: "c",
-    },
-    {
-      type: "true-false",
-      text: "Dünya yuvarlaktır.",
-      answer: "True", // Correct answer for the True/False question
-    },
-  ],
+  questions: whoeleQuestions,
   points: 0,
   currentQuestionNo: 0,
   selectedOptions: [],
@@ -72,6 +18,9 @@ export const questionSlice = createSlice({
   name: "quiz",
   initialState,
   reducers: {
+    randomizeQuestions: (state) => {
+      state.questions = state.questions.sort(() => Math.random() - 0.5);
+    },
     questionsHandler: (state, action) => {
       state.questions = action.payload;
     },
@@ -114,6 +63,7 @@ export const {
   resetHandler,
   selectedHandler,
   pointHandler,
+  randomizeQuestions,
 } = questionSlice.actions;
 
 export default questionSlice.reducer;
