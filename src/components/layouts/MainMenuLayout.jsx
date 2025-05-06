@@ -14,7 +14,7 @@ const MainMenuLayout = () => {
   return (
     <div className="p-3 w-full h-screen text-white flex flex-col items-center justify-center text-center gap-8">
       {/* SECTION Logo */}
-      <div className="text-9xl font-extrabold select-none tracking-widest italic mb-10">
+      <div className="text-7xl lg:text-9xl font-extrabold select-none tracking-widest italic mb-10">
         <h1>ŞipŞak</h1>
       </div>
       {/* SECTION Description */}
@@ -27,7 +27,7 @@ const MainMenuLayout = () => {
         </p>
       </div>
       {/* SECTION Buttons */}
-      <div className="flex justify-between items-center gap-4 font-bold select-none">
+      <div className="flex justify-center items-center flex-wrap gap-4 font-bold select-none">
         <button
           onClick={() => {
             dispatch(questionsHandler(cherryPickQuestionHandler(1)));
