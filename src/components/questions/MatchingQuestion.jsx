@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
+import {
+  DndContext,
+  PointerSensor,
+  useDraggable,
+  useDroppable,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import { useDispatch, useSelector } from "react-redux";
 import { optionStyles } from "../../styles/optionStyles";
 import { randomizer } from "../../functions/randomizer";
@@ -11,7 +18,7 @@ export default function MatchingQuestion() {
   );
   const dispatch = useDispatch();
   const question = questions[currentQuestionNo];
-
+  const sensors = useSensors(useSensor(PointerSensor));
   // Track which option is in which dropzone
   const [droppedItems, setDroppedItems] = useState({});
 
@@ -107,7 +114,7 @@ export default function MatchingQuestion() {
   }, [currentQuestionNo]);
 
   return (
-    <DndContext onDragEnd={handleDragEnd}>
+    <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
       {/* Options container - marked as a drop target to allow returning items */}
       <div
         className="mt-6 flex flex-wrap gap-2 min-h-16? p-2 rounded bg-neutral-900/30 select-none"
