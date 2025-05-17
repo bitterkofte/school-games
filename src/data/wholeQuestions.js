@@ -337,6 +337,61 @@ export const tpQuestions = [
   },
 ];
 
+export const mQuestions = [
+  {
+    type: "matching",
+    text: "Eş anlamlı kelimeleri eşleştiriniz.",
+    answer: [
+      { main: "güzel", pair: "hoş" },
+      { main: "kötü", pair: "fena" },
+      { main: "nazik", pair: "kibar" },
+    ],
+  },
+  {
+    type: "matching",
+    text: "Numaraları eşleştiriniz.",
+    answer: [
+      { main: "5", pair: "beş" },
+      { main: "100", pair: "yüz" },
+      { main: "21", pair: "yirmibir" },
+    ],
+  },
+  {
+    type: "matching",
+    text: "Hayvan seslerini eşleştiriniz.",
+    answer: [
+      { main: "kedi", pair: "miyav" },
+      { main: "horoz", pair: "ü-ürü-üüü" },
+      { main: "köpek", pair: "havhav" },
+      { main: "kuş", pair: "cikcik" },
+      { main: "yılan", pair: "tıss" },
+    ],
+  },
+  {
+    type: "matching",
+    text: "Duyu organları ve aletleri eşleştiriniz.",
+    answer: [
+      { main: "göz", pair: "teleskop" },
+      { main: "deri", pair: "termometre" },
+      { main: "kulak", pair: "steteskop" },
+      { main: "burun", pair: "solunum cihazı" },
+      { main: "dil", pair: "tatlı-acı testi" },
+    ],
+  },
+  {
+    type: "matching",
+    text: "Meslek ve işyerlerini eşleştiriniz.",
+    answer: [
+      { main: "polis", pair: "karakol" },
+      { main: "öğretmen", pair: "okul" },
+      { main: "doktor", pair: "poliklinik" },
+      { main: "pilot", pair: "uçak" },
+      { main: "imam", pair: "cami" },
+      { main: "futbolcu", pair: "stadyum" },
+    ],
+  },
+];
+
 // const eski = [
 //   {
 //     type: "single-choice",

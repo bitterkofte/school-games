@@ -5,6 +5,8 @@ import MainMenuLayout from "./components/layouts/MainMenuLayout";
 import WindowSelector from "./components/WindowSelector";
 import LearnTurkeyProvinceMap from "./components/learn/learnTurkeyProvinceMap";
 import Navigation from "./components/Navigation";
+import MatchingQuestion from "./components/questions/MatchingQuestion";
+import SimpleMatch from "./components/SimpleMatch";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         {/* <Navigation /> */}
         <WindowSelector />
         {/* <LearnTurkeyProvinceMap /> */}
+        {/* <MatchingQuestion /> */}
+        {/* <SimpleMatch /> */}
       </div>
     </>
   );

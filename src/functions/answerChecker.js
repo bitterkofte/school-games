@@ -14,5 +14,10 @@ export const answerChecker = (type, selectedOptions, answer) => {
     return selectedOptions === answer;
   } else if (type === "turkiye-province") {
     return selectedOptions[0] === answer;
-  }
+  } else if (type === "matching")
+    if (selectedOptions.length !== answer.length) return false;
+  return selectedOptions.every(
+    (item, i) => answer[i].pair === item
+    // (item, i) => answer.find((a) => a.main === item.main)?.pair === item.pair
+  );
 };

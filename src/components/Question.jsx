@@ -13,6 +13,7 @@ import TurkiyeProvinceQuestion from "./questions/TurkiyeProvinceQuestion";
 import { toast } from "sonner";
 import { windowSelector } from "../redux/windowSlice";
 import { ImExit } from "react-icons/im";
+import MatchingQuestion from "./questions/MatchingQuestion";
 
 const Question = () => {
   const {
@@ -47,6 +48,8 @@ const Question = () => {
         return <MultipleChoiceQuestion />;
       case "sorting":
         return <SortingQuestion />;
+      case "matching":
+        return <MatchingQuestion />;
       case "true-false":
         return <TrueFalseQuestion />;
       case "turkiye-province":
@@ -77,7 +80,6 @@ const Question = () => {
                   else dispatch(windowSelector("results"));
                 }
           }
-          // onClick={() => dispatch(showAnswerHandler(!showAnswer))}
           disabled={selectedOptions.length === 0}
           className={` ${
             !showAnswer
@@ -96,16 +98,6 @@ const Question = () => {
             : "Bitir"}
         </button>
       </div>
-      {/* <div
-        onClick={() => {
-          toast.dismiss(toastRef.current);
-          toastRef.current = null;
-          dispatch(windowSelector("results"));
-        }}
-        className="fixed bottom-5 left-5 p-2 py-3 pl-3 text-3xl bg-red-500 rounded-xl opacity-70 hover:opacity-100 cursor-pointer z-50 transition-all duration-200"
-      >
-        <ImExit />
-      </div> */}
     </div>
   );
 };
