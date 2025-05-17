@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   DndContext,
   PointerSensor,
+  TouchSensor,
   useDraggable,
   useDroppable,
   useSensor,
@@ -18,8 +19,7 @@ export default function MatchingQuestion() {
   );
   const dispatch = useDispatch();
   const question = questions[currentQuestionNo];
-  const sensors = useSensors(useSensor(PointerSensor));
-  // Track which option is in which dropzone
+  // const sensors = useSensors(useSensor(PointerSensor), useSensor(TouchSensor)); // Track which option is in which dropzone
   const [droppedItems, setDroppedItems] = useState({});
 
   // Track which options have been placed in dropzones
@@ -114,7 +114,7 @@ export default function MatchingQuestion() {
   }, [currentQuestionNo]);
 
   return (
-    <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
+    <DndContext onDragEnd={handleDragEnd}>
       {/* Options container - marked as a drop target to allow returning items */}
       <div
         className="mt-6 flex flex-wrap gap-2 min-h-16? p-2 rounded bg-neutral-900/30 select-none"
@@ -202,7 +202,7 @@ function DraggableItem({ id, isPlaced, correct }) {
       {...(!showAnswer ? attributes : {})} // Disable attributes when showAnswer is true
       {...(!showAnswer ? listeners : {})} // Disable listeners when showAnswer is true
       style={style}
-      className={`px-4 py-2 backdrop-blur-xl? bg-neutral-300/10? rounded shadow w-max ${dragStyle} ${bgStyle}`}
+      className={`px-4 py-2 backdrop-blur-xl? bg-neutral-300/10? rounded shadow w-max touch-none ${dragStyle} ${bgStyle}`}
     >
       {id}
     </div>
