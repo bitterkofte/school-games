@@ -6,7 +6,7 @@ import {
 } from "../../redux/questionSlice";
 import { createRandomizedProvinceQuestions } from "../../functions/randomizeTurkeyProvinces";
 import { cherryPickQuestionHandler } from "../../functions/cherryPickQuestionHandler";
-import { mQuestions } from "../../data/wholeQuestions";
+import { fQuestions, mQuestions } from "../../data/wholeQuestions";
 
 const MainMenuLayout = () => {
   const { questions } = useSelector((state) => state.question);
@@ -29,15 +29,6 @@ const MainMenuLayout = () => {
       </div>
       {/* SECTION Buttons */}
       <div className="flex justify-center items-center flex-wrap gap-4 font-bold select-none">
-        <button
-          onClick={() => {
-            dispatch(questionsHandler(mQuestions));
-            dispatch(windowSelector("quiz"));
-          }}
-          className="bg-purple-700 hover:bg-purple-600 py-2 px-4 rounded-lg shadow-lg hover:scale-105 cursor-pointer transition-all duration-300"
-        >
-          Eşleştirme
-        </button>
         <button
           onClick={() => {
             dispatch(questionsHandler(cherryPickQuestionHandler(1)));
@@ -73,6 +64,24 @@ const MainMenuLayout = () => {
           className="bg-orange-700 hover:bg-orange-600 py-2 px-4 rounded-lg shadow-lg hover:scale-105 cursor-pointer transition-all duration-300"
         >
           Türkiye İl Haritası
+        </button>
+        <button
+          onClick={() => {
+            dispatch(questionsHandler(fQuestions));
+            dispatch(windowSelector("quiz"));
+          }}
+          className="bg-sky-700 hover:bg-sky-600 py-2 px-4 rounded-lg shadow-lg hover:scale-105 cursor-pointer transition-all duration-300"
+        >
+          Boşluk Doldurma
+        </button>
+        <button
+          onClick={() => {
+            dispatch(questionsHandler(mQuestions));
+            dispatch(windowSelector("quiz"));
+          }}
+          className="bg-pink-700 hover:bg-pink-600 py-2 px-4 rounded-lg shadow-lg hover:scale-105 cursor-pointer transition-all duration-300"
+        >
+          Eşleştirme
         </button>
         {/* <button
           onClick={() => dispatch(windowSelector("learn"))}

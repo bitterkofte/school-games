@@ -392,6 +392,65 @@ export const mQuestions = [
   },
 ];
 
+export const fQuestions = [
+  // {
+  //   type: "fill-in-the-blank",
+  //   text: "Üretilen şeye [[blank]] denir.",
+  //   answer: ["öçşiğü"],
+  // },
+  {
+    type: "fill-in-the-blank",
+    text: "Elma [[blank]]'ta yetişen bir meyvedir.",
+    answer: ["ağaç"],
+  },
+  {
+    type: "fill-in-the-blank",
+    text: "Fransa'nın başkenti [[blank]] ve para birimi [[blank]]'dur.",
+    answer: ["Paris", "Euro"],
+  },
+  {
+    type: "fill-in-the-blank",
+    text: "Bir haftada [[blank]] gün vardır.",
+    answer: ["7"],
+  },
+  {
+    type: "fill-in-the-blank",
+    text: "Kış mevsiminde [[blank]] yağar.",
+    answer: ["kar"],
+  },
+  {
+    type: "fill-in-the-blank",
+    text: "Atatürk [[blank]] yılında Türkiye Cumhuriyeti'ni kurdu.",
+    answer: ["1923"],
+  },
+
+  {
+    type: "fill-in-the-blank",
+    text: "İstanbul Boğazı [[blank]] ve [[blank]] denizlerini birbirine bağlar.",
+    answer: ["Karadeniz", "Marmara"],
+  },
+  {
+    type: "fill-in-the-blank",
+    text: "Bir yıl [[blank]] aydan oluşur.",
+    answer: ["12"],
+  },
+  {
+    type: "fill-in-the-blank",
+    text: "Ay ve Güneş gökyüzünde görülen [[blank]] cisimleridir.",
+    answer: ["gök"],
+  },
+  {
+    type: "fill-in-the-blank",
+    text: "Bitkiler büyümek için [[blank]], su ve toprak gerektirir.",
+    answer: ["güneş"],
+  },
+  {
+    type: "fill-in-the-blank",
+    text: "Dünya'nın uydusunun adı [[blank]]'dır.",
+    answer: ["Ay"],
+  },
+];
+
 // const eski = [
 //   {
 //     type: "single-choice",

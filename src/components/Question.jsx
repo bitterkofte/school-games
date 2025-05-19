@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import { windowSelector } from "../redux/windowSlice";
 import { ImExit } from "react-icons/im";
 import MatchingQuestion from "./questions/MatchingQuestion";
+import FillInTheBlankQuestion from "./questions/FillInTheBlankQuestion";
 
 const Question = () => {
   const {
@@ -52,6 +53,8 @@ const Question = () => {
         return <MatchingQuestion />;
       case "true-false":
         return <TrueFalseQuestion />;
+      // case "fill-in-the-blank":
+      //   return <FillInTheBlankQuestion />;
       case "turkiye-province":
         return <TurkiyeProvinceQuestion />;
     }
@@ -59,8 +62,19 @@ const Question = () => {
 
   return (
     <div className="py-5 px-7 lg:py-10 lg:px-16 w-full lg:w-[45rem] mx-auto backdrop-blur-sm bg-white/10 rounded-xl shadow-2xl space-y-4">
-      <h2 className="text-3xl font-semibold">
+      {/* <h2 className="text-3xl font-semibold">
         {currentQuestionNo + 1}. {questions[currentQuestionNo].text}
+      </h2> */}
+      <h2 className="text-3xl font-semibold flex flex-wrap gap-1">
+        {currentQuestionNo + 1}.{" "}
+        {questions[currentQuestionNo].type === "fill-in-the-blank" ? (
+          <FillInTheBlankQuestion
+            text={questions[currentQuestionNo].text}
+            answer={questions[currentQuestionNo].answer}
+          />
+        ) : (
+          questions[currentQuestionNo].text
+        )}
       </h2>
 
       {QuestionSelector()}
