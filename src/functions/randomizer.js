@@ -1,1 +1,4 @@
-export const randomizer = (array) => array.sort(() => Math.random() - 0.5);
+export const randomizer = (array) =>
+  [...array].sort(
+    () => crypto.getRandomValues(new Uint32Array(1))[0] - 2147483648
+  );

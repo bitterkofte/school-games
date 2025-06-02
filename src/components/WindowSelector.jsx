@@ -3,6 +3,7 @@ import MainMenuLayout from "./layouts/MainMenuLayout";
 import QuestionLayout from "./layouts/questionLayout";
 import ResultsLayout from "./layouts/ResultsLayout";
 import LearnLayout from "./layouts/LearnLayout";
+import CreateTestLayout from "./layouts/CreateTestLayout";
 
 const WindowSelector = () => {
   const { window } = useSelector((state) => state.window);
@@ -15,6 +16,8 @@ const WindowSelector = () => {
       return <LearnLayout />;
     case "results":
       return <ResultsLayout />;
+    case "create-test":
+      return <CreateTestLayout />;
     default:
       return <MainMenuLayout />;
   }

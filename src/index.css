@@ -16,6 +16,9 @@
 }
 
 @layer utilities {
+  .btn-disabled {
+    @apply disabled:cursor-not-allowed disabled:opacity-50;
+  }
   @keyframes pulse-correct-province {
     0%,
     100% {
@@ -44,5 +47,22 @@
   }
   .animate-pulse-blue {
     animation: pulse-blue 1.5s ease-in-out infinite;
+  }
+
+  @keyframes gradient-bg {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  .gradient-animation {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient-bg 10s ease infinite;
   }
 }

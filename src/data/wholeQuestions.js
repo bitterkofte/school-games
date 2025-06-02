@@ -1,3 +1,13 @@
+export const questionTypes = [
+  { value: "single-choice", label: "Çoktan Seçmeli - Tek Cevap" },
+  { value: "multiple-choice", label: "Çoktan Seçmeli - Çok Cevap" },
+  { value: "sorting", label: "Sıralama" },
+  { value: "fill-in-the-blank", label: "Açık Uçlu" },
+  { value: "true-false", label: "Doğru Yanlış" },
+  { value: "turkiye-province", label: "Türkiye İlleri" },
+  { value: "matching", label: "Eşleştirme" },
+];
+
 export const whoeleQuestions = [
   {
     type: "turkiye-province",
@@ -82,6 +92,7 @@ export const whoeleQuestions = [
   },
 ];
 
+// true-false
 export const tfQuestions = [
   {
     type: "true-false",
@@ -130,6 +141,7 @@ export const tfQuestions = [
   },
 ];
 
+// single-choice
 export const scQuestions = [
   {
     type: "single-choice",
@@ -183,6 +195,7 @@ export const scQuestions = [
   },
 ];
 
+// multiple-choice
 export const mcQuestions = [
   {
     type: "multiple-choice",
@@ -241,6 +254,7 @@ export const mcQuestions = [
   },
 ];
 
+// sorting
 export const sQuestions = [
   {
     type: "sorting",
@@ -299,6 +313,7 @@ export const sQuestions = [
   },
 ];
 
+// turkiye-province
 export const tpQuestions = [
   {
     type: "turkiye-province",
@@ -337,6 +352,7 @@ export const tpQuestions = [
   },
 ];
 
+// matching
 export const mQuestions = [
   {
     type: "matching",
@@ -392,6 +408,7 @@ export const mQuestions = [
   },
 ];
 
+// fill-in-the-blank
 export const fQuestions = [
   // {
   //   type: "fill-in-the-blank",

@@ -16,6 +16,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { randomizer } from "../../functions/randomizer";
 
 const SortableItem = ({ id, text, correctId, index, showAnswer }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
@@ -50,7 +51,9 @@ const SortingQuestion = () => {
   const dispatch = useDispatch();
   const question = quiz.questions[quiz.currentQuestionNo];
 
-  const [order, setOrder] = useState(question.options.map((opt) => opt.id));
+  const [order, setOrder] = useState(
+    randomizer(question.options.map((opt) => opt.id))
+  );
   const sensors = useSensors(
     useSensor(PointerSensor) // Disable dragging when quiz.showAnswer is true
   );

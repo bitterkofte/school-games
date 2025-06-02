@@ -6,7 +6,7 @@ import {
 } from "../../redux/questionSlice";
 import { createRandomizedProvinceQuestions } from "../../functions/randomizeTurkeyProvinces";
 import { cherryPickQuestionHandler } from "../../functions/cherryPickQuestionHandler";
-import { fQuestions, mQuestions } from "../../data/wholeQuestions";
+import { fQuestions, mQuestions, sQuestions } from "../../data/wholeQuestions";
 
 const MainMenuLayout = () => {
   const { questions } = useSelector((state) => state.question);
@@ -82,6 +82,23 @@ const MainMenuLayout = () => {
           className="bg-pink-700 hover:bg-pink-600 py-2 px-4 rounded-lg shadow-lg hover:scale-105 cursor-pointer transition-all duration-300"
         >
           Eşleştirme
+        </button>
+        <button
+          onClick={() => {
+            dispatch(questionsHandler(sQuestions));
+            dispatch(windowSelector("quiz"));
+          }}
+          className="bg-pink-700 hover:bg-pink-600 py-2 px-4 rounded-lg shadow-lg hover:scale-105 cursor-pointer transition-all duration-300"
+        >
+          Sıralama
+        </button>
+        <button
+          onClick={() => {
+            dispatch(windowSelector("create-test"));
+          }}
+          className="py-2 px-4 rounded-lg text-white font-bold hover:scale-105 shadow-lg transition-all duration-300 gradient-animation cursor-pointer"
+        >
+          Test Oluştur
         </button>
         {/* <button
           onClick={() => dispatch(windowSelector("learn"))}
