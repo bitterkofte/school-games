@@ -12,6 +12,7 @@ const initialState = {
   selectedOptions: [],
   correctness: null,
   showAnswer: false,
+  myTests: JSON.parse(localStorage.getItem("MyTests")) || [],
 };
 
 export const questionSlice = createSlice({
@@ -52,6 +53,9 @@ export const questionSlice = createSlice({
     pointHandler: (state, action) => {
       state.points += action.payload;
     },
+    myTestsHandler: (state, action) => {
+      state.myTests = action.payload;
+    },
   },
 });
 
@@ -64,6 +68,7 @@ export const {
   selectedHandler,
   pointHandler,
   randomizeQuestions,
+  myTestsHandler,
 } = questionSlice.actions;
 
 export default questionSlice.reducer;

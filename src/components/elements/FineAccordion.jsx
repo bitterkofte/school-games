@@ -10,7 +10,7 @@ const FineAccordion = ({ title, children }) => {
         onClick={() => setIsAccordionOpen(!isAccordionOpen)}
         className="w-full text-left cursor-pointer transition-colors duration-200"
       >
-        <div className="p-2 flex justify-between items-center">
+        <div className="p-4 flex justify-between items-center">
           <h3 className="text-lg font-semibold">{title}</h3>
           <div className="flex-shrink-0">
             <FaChevronDown

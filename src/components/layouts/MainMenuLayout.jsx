@@ -7,7 +7,7 @@ import {
 import { createRandomizedProvinceQuestions } from "../../functions/randomizeTurkeyProvinces";
 import { cherryPickQuestionHandler } from "../../functions/cherryPickQuestionHandler";
 import { fQuestions, mQuestions, sQuestions } from "../../data/wholeQuestions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FineSidebar from "../elements/FineSidebar";
 import { IoMenu } from "react-icons/io5";
 
@@ -15,6 +15,10 @@ const MainMenuLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { questions } = useSelector((state) => state.question);
   const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(localStorage.getItem("MyTests"));
+  // }, []);
 
   return (
     <div className="min-h-screen flex overflow-hidden">
@@ -24,13 +28,17 @@ const MainMenuLayout = () => {
       />
       <div
         className={`p-3 w-full h-screen text-white flex-1 flex flex-col items-center justify-center text-center gap-8 transition-transform duration-300 ease-in-out ${
-          isSidebarOpen ? "translate-x-64" : "translate-x-0"
+          isSidebarOpen ? "translate-x-96" : "translate-x-0"
         }`}
       >
         {/* SECTION HEAD */}
         <div className="">
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            // onClick={() => {
+            //   setIsSidebarOpen(!isSidebarOpen);
+            //   dispatch(localStorage.getItem("MyTests"));
+            // }}
             className="absolute top-5 left-5 p-2 rounded-lg transition-colors cursor-pointer"
           >
             <IoMenu size={24} />

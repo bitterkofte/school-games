@@ -208,56 +208,60 @@ const QuestionTypeSelector = ({
     };
     return (
       <div className="">
-        {(answer || []).map((pair, index) => (
-          <div
-            key={index}
-            className="relative flex items-center justify-between gap-2 p-2 rounded-lg mb-2"
-          >
-            <FineInput
-              label="Anahtar"
-              maxLength={20}
-              isFocused={isOptionFocused}
-              setFocused={(i) => {
-                setIsOptionFocused(i);
-              }}
-              value={pair.main}
-              index={index}
-              onChange={(e) => {
-                const newAnswer = [...answer];
-                newAnswer[index].main = e;
-                setAnswer(newAnswer);
-              }}
-            />
-            <FineInput
-              label="Çift"
-              maxLength={20}
-              isFocused={isOptionFocused}
-              setFocused={(i) => {
-                setIsOptionFocused(i);
-              }}
-              type="text"
-              value={pair.pair}
-              index={index}
-              onChange={(e) => {
-                const newAnswer = [...answer];
-                newAnswer[index].pair = e;
-                setAnswer(newAnswer);
-              }}
-            />
-            <button
-              onClick={() => {
-                if (answer.length <= 2) return; // Prevent deletion if only 2 pairs left
-                const newAnswer = [...answer];
-                newAnswer.splice(index, 1);
-                setAnswer(newAnswer);
-              }}
-              disabled={answer.length <= 2}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-700 rounded-full p-2 cursor-pointer hover:bg-red-600 active:scale-50 transition-all duration-300 btn-disabled"
+        {!answer ? (
+          <p>Yükleniyor...</p>
+        ) : (
+          answer.map((pair, index) => (
+            <div
+              key={index}
+              className="relative flex items-center justify-between gap-2 p-2 rounded-lg mb-2"
             >
-              <MdDeleteForever />
-            </button>
-          </div>
-        ))}
+              <FineInput
+                label="Anahtar"
+                maxLength={20}
+                isFocused={isOptionFocused}
+                setFocused={(i) => {
+                  setIsOptionFocused(i);
+                }}
+                value={pair.main}
+                index={index}
+                onChange={(e) => {
+                  const newAnswer = [...answer];
+                  newAnswer[index].main = e;
+                  setAnswer(newAnswer);
+                }}
+              />
+              <FineInput
+                label="Çift"
+                maxLength={20}
+                isFocused={isOptionFocused}
+                setFocused={(i) => {
+                  setIsOptionFocused(i);
+                }}
+                type="text"
+                value={pair.pair}
+                index={index}
+                onChange={(e) => {
+                  const newAnswer = [...answer];
+                  newAnswer[index].pair = e;
+                  setAnswer(newAnswer);
+                }}
+              />
+              <button
+                onClick={() => {
+                  if (answer.length <= 2) return; // Prevent deletion if only 2 pairs left
+                  const newAnswer = [...answer];
+                  newAnswer.splice(index, 1);
+                  setAnswer(newAnswer);
+                }}
+                disabled={answer.length <= 2}
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-700 rounded-full p-2 cursor-pointer hover:bg-red-600 active:scale-50 transition-all duration-300 btn-disabled"
+              >
+                <MdDeleteForever />
+              </button>
+            </div>
+          ))
+        )}
         <button
           className="w-full flex items-center justify-center gap-2 active:scale-95 border-2 border-transparent hover:border-lime-600 bg-teal-900 hover:text-lime-500 text-white px-4 py-2 rounded-lg mt-2 cursor-pointer transition-all duration-200 btn-disabled"
           onClick={pairAddHandler}
