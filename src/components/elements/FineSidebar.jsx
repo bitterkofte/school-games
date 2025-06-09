@@ -3,12 +3,16 @@ import FineAccordion from "./FineAccordion";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-export default function FineSidebar({ isSidebarOpen, setIsSidebarOpen }) {
-  const { myTests } = useSelector((state) => state.question);
+export default function FineSidebar({
+  isSidebarOpen,
+  // setIsSidebarOpen,
+  children,
+}) {
+  // const { myTests } = useSelector((state) => state.question);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  // const toggleSidebar = () => {
+  //   setIsSidebarOpen(!isSidebarOpen);
+  // };
   // const [myTests, setMyTests] = useState(localStorage.getItem("MyTests") || []);
 
   return (
@@ -17,29 +21,18 @@ export default function FineSidebar({ isSidebarOpen, setIsSidebarOpen }) {
         isSidebarOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
-      <div className="p-6">
-        <div className="flex items-center justify-between mb-8 mt-1">
+      <div className="p-5">
+        <div className="flex items-center justify-between mb-8">
           <h2 className="text-xl font-bold">Menü</h2>
-          <button
+          {/* <button
             onClick={toggleSidebar}
             className="cursor-pointer hover:text-red-500 transition-colors"
           >
             <IoCloseOutline size={24} />
-          </button>
+          </button> */}
         </div>
 
-        <FineAccordion title={"Testlerim"}>
-          {myTests.map((test, index) => (
-            <p>{test.name}</p>
-          ))}
-          {/* <button className="">a</button>
-          <button className="">b</button>
-          <button className="">c</button>
-          <button className="">c</button>
-          <button className="">c</button>
-          <button className="">c</button>
-          <button className="">c</button> */}
-        </FineAccordion>
+        {children}
       </div>
     </div>
   );

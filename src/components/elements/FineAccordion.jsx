@@ -24,11 +24,14 @@ const FineAccordion = ({ title, children }) => {
 
       {/* Content */}
       <div
-        className={`bg-gray-600/20 pl-4 transition-all duration-300 ${
-          isAccordionOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        className={`px-3 flex flex-col gap-2 items-start bg-gray-600/20 transition-all  ${
+          isAccordionOpen
+            ? "py-2 max-h-96 opacity-100 duration-[820ms]"
+            : "py-0 max-h-0 opacity-40 duration-300"
         }`}
       >
-        <p className="pb-2 flex flex-col gap-2 items-start">{children}</p>
+        {/* <div className="py-2 flex flex-col gap-2 items-start">{children}</div> */}
+        {children}
       </div>
     </div>
   );

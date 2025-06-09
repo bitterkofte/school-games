@@ -60,9 +60,26 @@
       background-position: 0% 50%;
     }
   }
+  @keyframes glow-bg {
+    0% {
+      box-shadow: 1px 1px 20px 10px #d7c10045, 1px 1px 30px 30px #d7c10032;
+    }
+    50% {
+      box-shadow: 1px 1px 20px 10px #d7c10032, 1px 1px 30px 20px #d7c10032;
+    }
+    100% {
+      box-shadow: 1px 1px 20px 10px #d7c10045, 1px 1px 30px 30px #d7c10032;
+    }
+  }
   .gradient-animation {
     background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
     background-size: 400% 400%;
     animation: gradient-bg 10s ease infinite;
+  }
+  .gradient-animation-fav {
+    background: linear-gradient(-45deg, #c9d700, #d7c100, #d7a800);
+    background-size: 400% 400%;
+    animation: gradient-bg, glow-bg 4s ease infinite;
+    /* box-shadow: 1px 1px 20px 10px #d7c10033, 1px 1px 30px 20px #d7c10033; */
   }
 }

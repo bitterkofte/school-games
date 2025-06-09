@@ -7,14 +7,14 @@ const ResultsLayout = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="h-screen flex justify-center items-center select-none">
-      <div className="py-14 px-20 rounded-4xl overflow-hidden font-extrabold text-center backdrop-blur-2xl bg-sky-300/10">
-        <h1 className="text-6xl mb-6">Testi tamamladın!</h1>
-        <p className="text-4xl mb-3">
+    <div className="h-screen p-4 flex justify-center items-center select-none">
+      <div className="p-7 md:py-14 md:px-20 rounded-4xl overflow-hidden font-extrabold text-center backdrop-blur-2xl bg-sky-300/10">
+        <h1 className="text-3xl md:text-6xl mb-6">Testi tamamladın!</h1>
+        <p className="text-2xl md:text-4xl mb-3">
           Puanın:{" "}
           <span className="text-sky-600 animate-pulse-blue">{points}</span>
         </p>
-        <p className="text-4xl mb-6">
+        <p className="text-2xl md:text-4xl mb-6">
           Doğru sayın:{" "}
           <span className="text-green-600? animate-pulse? animate-pulse-correct-province">
             {points / 10}/{questions.length}

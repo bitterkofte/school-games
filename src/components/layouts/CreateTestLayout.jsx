@@ -3,16 +3,25 @@ import { Dropdown } from "../elements/Dropdown";
 import { questionTypes } from "../../data/wholeQuestions";
 import QuestionTypeSelector from "../QuestionTypeSelector";
 import { createFitbQuestion } from "../../functions/createFitbQuestion";
-import {
-  areAllValuesUnique,
-  isAnyElementSame,
-} from "../../functions/fineFunctions";
+import { isAnyElementSame } from "../../functions/fineFunctions";
 import { FaArrowRightToBracket } from "react-icons/fa6";
 import { FaSave } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { modalHandler } from "../../redux/windowSlice";
 import FineModal from "../elements/FineModal";
 import { toast } from "sonner";
+import {
+  closeModal,
+  openModal,
+  resetModal,
+  windowSelector,
+} from "../../redux/windowSlice";
+import { AiFillHome } from "react-icons/ai";
+import AddedQuestionsComp from "../mini-comps/AddedQuestionsComp";
+import { questionFormer } from "../../functions/questionFormer";
+import { questionAddDisableHandler } from "../../functions/questionAddDisableHandler";
+import { resetTestForm } from "../../functions/resetTestForm";
+import { toastError } from "../../functions/toastError";
+import FloatingButton from "../elements/FloatingButton";
 
 const LOCAL_STORAGE_KEY = "BackupUnfinishedTest";
 
@@ -24,92 +33,34 @@ const CreateTestLayout = () => {
   const [answer, setAnswer] = useState("");
   const [isTextareaFocused, setIsTextareaFocused] = useState(false);
   const [testName, setTestName] = useState("");
-  const { isModalOpen } = useSelector((state) => state.window);
+  const { isModalOpen, modalText, modalTitle, modalAction } = useSelector(
+    (state) => state.window
+  );
   const dispatch = useDispatch();
 
+  // Question Add Disable Checker
   const isAddDisabled = useMemo(() => {
-    // Your validation logic here
-    return questionAddDisableHandler();
+    return questionAddDisableHandler(
+      questionText,
+      questionType,
+      options,
+      answer
+    );
   }, [questionText, questionType.value, options, answer]);
 
-  const resetForm = () => {
-    setQuestionText("");
-    if (
-      ["single-choice", "multiple-choice", "sorting"].includes(
-        questionType.value
-      )
-    ) {
-      setOptions(["", "", ""]);
-      setAnswer("");
-    } else if (questionType.value === "matching") {
-      // console.log("matching question type selected");
-      setAnswer([
-        { main: "", pair: "" },
-        { main: "", pair: "" },
-        { main: "", pair: "" },
-      ]);
-    } else if (questionType.value === "fill-in-the-blank") {
-      setAnswer([]);
-    } else if (questionType.value === "true-false") {
-      setAnswer("Doğru");
-    } else if (questionType.value === "turkiye-province") {
-      setQuestionText(answer + " ilimiz hangisidir?");
-      // setQuestionText("");
-      setAnswer("");
-    } else {
-      setOptions(["", "", ""]);
-      setAnswer("");
-    }
-  };
-
-  function questionAddDisableHandler() {
-    if (!questionText.trim()) return true;
-    if (
-      ["single-choice", "multiple-choice", "sorting"].includes(
-        questionType.value
-      ) &&
-      isAnyElementSame(options)
-    )
-      return true;
-    else if (questionType.value === "single-choice") {
-      return !options.some((opt) => opt.trim()) || !answer.trim();
-    } else if (questionType.value === "multiple-choice") {
-      return (
-        !options.some((opt) => opt.trim()) ||
-        // !answer.some((a) => a.trim()) ||
-        answer.length < 2
-      );
-    } else if (questionType.value === "sorting") {
-      return !options.some((opt) => opt.trim());
-    } else if (questionType.value === "matching") {
-      return (
-        answer.some((pair) => !pair.main.trim() || !pair.pair.trim()) ||
-        !areAllValuesUnique(answer, "main")
-      );
-    } else if (questionType.value === "fill-in-the-blank") {
-      const opening = (questionText.match(/\[\[/g) || []).length;
-      const closing = (questionText.match(/\]\]/g) || []).length;
-      const empty = questionText.match(/\[\[\s*\]\]/g);
-      // return answer.some((a) => !a.trim());
-      return opening !== closing || empty;
-    } else if (questionType.value === "true-false") {
-      // return !answer.trim();
-      return false;
-    } else if (questionType.value === "turkiye-province") {
-      return answer === "";
-    }
-  }
-
+  // Reset form when question-type change
   useEffect(() => {
-    if (questionType.value === "turkiye-province" && answer) {
-      setQuestionText(answer + " ilimiz hangisidir?");
-    } else return;
-  }, [answer, questionType]);
-
-  useEffect(() => {
-    resetForm();
+    resetTestForm(setQuestionText, setOptions, setAnswer, questionType);
   }, [questionType]);
 
+  // Prevent cloning the answer
+  useEffect(() => {
+    if (isAnyElementSame(options)) {
+      setAnswer("");
+    } else return;
+  }, [options]);
+
+  // Updating from LocalStorage
   useEffect(() => {
     const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (stored) setQuestions(JSON.parse(stored));
@@ -117,112 +68,77 @@ const CreateTestLayout = () => {
     if (!myTests) localStorage.setItem("MyTests", JSON.stringify([]));
   }, []);
 
-  const handleQuestionText = (txt) => {
+  // Question text updater
+  const questionTextChanger = (txt) => {
     if (questionType.value === "fill-in-the-blank") {
       const [newText, extracted] = createFitbQuestion(txt);
-      // console.log("extracted: ", extracted);
       setQuestionText(newText);
       setAnswer(extracted);
     } else setQuestionText(txt);
   };
-  const handleAddQuestion = () => {
-    if (!questionText.trim()) return;
 
-    const newQuestion = {
-      type: questionType.value,
-      ...(questionType.value === "single-choice" && {
-        text: questionText,
-        options,
-        answer,
-      }),
-      ...(questionType.value === "multiple-choice" && {
-        text: questionText,
-        options: [...options].map((opt, i) => ({
-          id: String.fromCharCode(97 + i),
-          text: opt,
-        })),
-        answer: answer,
-      }),
-      ...(questionType.value === "sorting" && {
-        text: questionText,
-        options: options.map((opt, i) => ({
-          id: (i + 1).toString(),
-          text: opt,
-        })),
-        answer: options.map((opt, i) => (i + 1).toString()),
-      }),
-      ...(questionType.value === "true-false" && {
-        text: questionText,
-        answer,
-      }),
-      ...(questionType.value === "turkiye-province" && {
-        text: questionText,
-        answer,
-      }),
-      ...(questionType.value === "matching" && {
-        text: questionText,
-        answer,
-      }),
-      ...(questionType.value === "fill-in-the-blank" && {
-        text: questionText.replace(/\[\[[^\]]*\]\]/g, "[[blank]]"),
-        answer: answer.map((s) => s.trim()),
-        // answer: answer.split("|").map((s) => s.trim()), // support multiple blanks
-      }),
-    };
-
-    const updated = [...questions, newQuestion];
-    setQuestions(updated);
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
-    resetForm();
-  };
-
-  const handleSaveTest = () => {
-    const myTests = JSON.parse(localStorage.getItem("MyTests"));
-    if (!testName.trim()) {
-      toast.error("Lütfen test ismini girin!");
-      return;
-    }
-    if (myTests.find((t) => t.name === testName)) {
-      toast.error("Bu isimde bir test zaten var!");
-      return;
-    }
-    // localStorage.setItem(testName, JSON.stringify(questions));
-    myTests.push({ name: testName, questions });
-    localStorage.setItem("MyTests", JSON.stringify(myTests));
-    //Reset form and state
-    localStorage.setItem(LOCAL_STORAGE_KEY, "");
-    setQuestions([]);
-    setTestName("");
-    dispatch(modalHandler(false));
-    toast.success("Test başarıyla kaydedildi!");
-  };
-
-  const handleOptionChange = (value, i) => {
+  // Option text updater
+  const optionTextChanger = (value, i) => {
     const newOpts = [...options];
     newOpts[i] = value;
     setOptions(newOpts);
   };
 
-  useEffect(() => {
-    if (isAnyElementSame(options)) {
-      setAnswer("");
-    } else return;
-  }, [options]);
+  // Add quesiton
+  const handleAddQuestion = () => {
+    if (!questionText.trim()) return;
+    const newQuestion = questionFormer(
+      questionType,
+      questionText,
+      options,
+      answer
+    );
+    const updated = [...questions, newQuestion];
+    setQuestions(updated);
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
+    resetTestForm(setQuestionText, setOptions, setAnswer, questionType);
+  };
 
-  const handleDelete = (index) => {
+  // Delete question
+  const handleDeleteAddedQuestion = (index) => {
     const updated = [...questions];
     updated.splice(index, 1);
     setQuestions(updated);
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
   };
 
+  // Add test
+  const handleSaveTest = () => {
+    const myTests = JSON.parse(localStorage.getItem("MyTests"));
+    if (!testName.trim()) return toastError("Lütfen test ismini girin!");
+    if (myTests.find((t) => t.name === testName))
+      return toastError("Bu isimde bir test zaten var!");
+    // Submiting the test
+    myTests.push({ name: testName, fav: false, questions });
+    localStorage.setItem("MyTests", JSON.stringify(myTests));
+    //Reset form and state
+    localStorage.setItem(LOCAL_STORAGE_KEY, "");
+    setQuestions([]);
+    setTestName("");
+    modalCloseFunc();
+    toast.success("Test başarıyla kaydedildi!");
+  };
+
+  function modalCloseFunc() {
+    dispatch(closeModal());
+    setTimeout(() => resetModal(), 300);
+  }
+
   return (
     <>
       <FineModal
-        isOpen={isModalOpen}
-        onClose={() => dispatch(modalHandler(false))}
+        isModalOpen={isModalOpen}
+        title={modalTitle}
+        text={modalText}
+        confirmText={"Kaydet"}
+        onConfirm={handleSaveTest}
+        onCancel={modalCloseFunc}
       >
-        <h3 className="text-2xl font-bold">Test Adı</h3>
         <input
           type="text"
           maxLength={15}
@@ -231,19 +147,8 @@ const CreateTestLayout = () => {
           onChange={(e) => setTestName(e.target.value)}
           placeholder=""
         />
-        <div className="flex justify-between items-center">
-          <button className="px-3 py-1 font-semibold bg-red-700 cursor-pointer rounded-lg">
-            Vazgeç
-          </button>
-          <button
-            className="px-3 py-1 font-semibold bg-teal-700 cursor-pointer rounded-lg"
-            onClick={handleSaveTest}
-          >
-            Kaydet
-          </button>
-        </div>
       </FineModal>
-      <div className="max-w-xl mx-auto my-10 p-8 space-y-6 bg-white/10 backdrop-blur rounded-lg font-[Poppins] shadow-lg">
+      <div className="max-w-xl mx-5 md:mx-auto my-5 p-8 space-y-6 bg-white/10 backdrop-blur rounded-lg font-[Poppins] shadow-lg">
         <h2 className="text-3xl font-semibold spacing-wide">Test Oluştur</h2>
 
         <div className="space-y-8">
@@ -251,7 +156,6 @@ const CreateTestLayout = () => {
             label="Question Type"
             options={questionTypes}
             selected={questionType}
-            // selector={(qT) => dispatch(setQuestionType(qT))}
             selector={(qT) => setQuestionType(qT)}
             z={3}
           />
@@ -263,11 +167,11 @@ const CreateTestLayout = () => {
               }`}
             >
               <textarea
-                className="w-full h-32 pl-2 overflow-ellipsis bg-transparent outline-0 border-0 resize-none text-gray-200"
+                className="w-full h-32 pl-2 bg-transparent outline-0 border-0 resize-none text-gray-200"
                 maxLength={200}
                 placeholder="Soru metnini buraya yazın..."
                 value={questionText}
-                onChange={(e) => handleQuestionText(e.target.value)}
+                onChange={(e) => questionTextChanger(e.target.value)}
                 onFocus={() => setIsTextareaFocused(true)}
                 onBlur={() => setIsTextareaFocused(false)}
               />
@@ -288,7 +192,7 @@ const CreateTestLayout = () => {
             questionType={questionType.value}
             options={options}
             setOptions={setOptions}
-            handleOptionChange={handleOptionChange}
+            handleOptionChange={optionTextChanger}
             answer={answer}
             setAnswer={setAnswer}
           />
@@ -299,57 +203,49 @@ const CreateTestLayout = () => {
             onClick={handleAddQuestion}
             className="px-4 py-2 flex items-center justify-center gap-2 bg-sky-600 hover:bg-sky-700 rounded text-white cursor-pointer btn-disabled"
             disabled={isAddDisabled}
-            // disabled={!questionText.trim()}
           >
             <span>Soruyu Ekle</span> <FaArrowRightToBracket />
           </button>
 
           <button
-            onClick={() => dispatch(modalHandler(true))}
+            onClick={() =>
+              dispatch(
+                openModal({
+                  title: "Testi Kaydet",
+                  text: "Test adını giriniz",
+                  action: "handleSaveTest",
+                })
+              )
+            }
             className="px-4 py-2 flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 rounded text-white cursor-pointer btn-disabled"
-            // disabled={questions.length < 3}
+            disabled={questions.length < 3}
           >
             <span>Testi Kaydet</span> <FaSave />
           </button>
         </div>
 
         <hr />
-
-        <h3 className="text-lg font-medium">Eklenen Sorular</h3>
-        {questions.length === 0 && (
-          <p className="italic opacity-50">Henüz soru eklenmedi.</p>
-        )}
-        <ul className="space-y-3">
-          {questions.map((q, i) => (
-            <li
-              key={i}
-              className="bg-neutral-800/30 p-3 rounded shadow flex justify-between"
-            >
-              <div>
-                <strong>
-                  {i + 1}. {q.text}
-                </strong>
-                {q.options && (
-                  <ul className="list-disc pl-5 text-sm text-gray-300">
-                    {q.options.map((opt, j) => (
-                      <li key={j}>{opt.toString()}</li>
-                    ))}
-                  </ul>
-                )}
-                <div className="text-sm text-green-300">
-                  Cevap: <strong>{q.answer?.toString()}</strong>
-                </div>
-              </div>
-              <button
-                onClick={() => handleDelete(i)}
-                className="text-red-400 hover:text-red-600"
-              >
-                Sil
-              </button>
-            </li>
-          ))}
-        </ul>
+        <AddedQuestionsComp
+          handleDelete={handleDeleteAddedQuestion}
+          questions={questions}
+        />
       </div>
+      <FloatingButton
+        position={"top-left"}
+        margin={"5"}
+        bg={"teal"}
+        content={<AiFillHome />}
+        action={() => dispatch(windowSelector("main-menu"))}
+      />
+      {/* <div
+        onClick={() => {
+          toast.dismiss();
+          dispatch(windowSelector("main-menu"));
+        }}
+        className="fixed bottom-5 left-5 p-2 text-3xl bg-teal-500 rounded-xl opacity-70 hover:opacity-100 cursor-pointer z-50 transition-all duration-200"
+      >
+        <AiFillHome />
+      </div> */}
     </>
   );
 };

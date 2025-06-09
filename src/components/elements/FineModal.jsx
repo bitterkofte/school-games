@@ -1,40 +1,46 @@
 import { useState, useEffect } from "react";
 import { IoCloseOutline } from "react-icons/io5";
+// import { useDispatch, useSelector } from "react-redux";
+// import { modalHandler } from "../../redux/windowSlice";
 
-const FineModal = ({ isOpen, onClose, children }) => {
+const FineModal = ({
+  isModalOpen,
+  title,
+  text,
+  onConfirm,
+  confirmText,
+  onCancel,
+  children,
+}) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  // const { isModalOpen, modalText, modalTitle, } = useSelector(
+  //   (state) => state.window
+  // );
+  // const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isOpen) {
+    if (isModalOpen) {
       setIsVisible(true);
-      setTimeout(() => setIsAnimating(true), 10);
-      // const scrollbarWidth =
-      //   window.innerWidth - document.documentElement.clientWidth;
-      document.body.style.overflow = "hidden";
-      // document.body.style.paddingRight = `${scrollbarWidth}px`;
+      setTimeout(() => setIsAnimating(true), 100);
+      // document.body.style.overflow = "hidden";
     } else {
       setIsAnimating(false);
       setTimeout(() => setIsVisible(false), 300);
-      document.body.style.overflow = "unset";
-      // document.body.style.paddingRight = "0px";
+      // document.body.style.overflow = "unset";
     }
     return () => {
-      document.body.style.overflow = "hidden";
-      // document.body.style.paddingRight = "0px";
+      // document.body.style.overflow = "hidden";
     };
-  }, [isOpen]);
+  }, [isModalOpen]);
 
   if (!isVisible) return null;
 
-  const handleBackdropClick = (e) => {
-    onClose();
-    // }
-  };
+  // const closeModalHandler = () => dispatch(modalHandler(false));
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center text-white transition-all duration-300 ${
+      className={`fixed inset-0 p-5 z-50 flex items-center justify-center text-white transition-all duration-300 ${
         isAnimating ? "backdrop-blur-xl" : "backdrop-blur-none"
       }`}
     >
@@ -47,12 +53,35 @@ const FineModal = ({ isOpen, onClose, children }) => {
       >
         <button
           className="p-1 top-6 right-6 bg-slate-600 hover:bg-red-800/50 absolute cursor-pointer rounded-md transition-all duration-300"
-          onClick={onClose}
+          onClick={onCancel}
         >
           <IoCloseOutline size={20} />
         </button>
         {/* PIN CONTENT */}
-        <div className="p-6 space-y-8">{children}</div>
+        <div className="p-6 space-y-6">
+          <div>
+            <h1 className="font-bold text-xl mb-2">{title}</h1>
+            <p>{text}</p>
+          </div>
+          {children && <div className="mb-4">{children}</div>}
+          <div className="flex justify-between items-center">
+            <button
+              className="px-3 py-1 font-semibold bg-red-700 cursor-pointer rounded-lg"
+              onClick={onCancel}
+            >
+              Vazgeç
+            </button>
+            <button
+              className="px-3 py-1 font-semibold bg-teal-700 cursor-pointer rounded-lg"
+              onClick={() => {
+                onConfirm();
+                onCancel();
+              }}
+            >
+              {confirmText}
+            </button>
+          </div>
+        </div>
       </div>
       <div
         className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-300 ${
@@ -60,7 +89,7 @@ const FineModal = ({ isOpen, onClose, children }) => {
             ? "bg-neutral-900 opacity-50 "
             : "bg-neutral-900 opacity-0 "
         }`}
-        onClick={handleBackdropClick}
+        onClick={onCancel}
       ></div>
     </div>
   );

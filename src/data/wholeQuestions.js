@@ -1,6 +1,6 @@
 export const questionTypes = [
-  { value: "single-choice", label: "Çoktan Seçmeli - Tek Cevap" },
-  { value: "multiple-choice", label: "Çoktan Seçmeli - Çok Cevap" },
+  { value: "single-choice", label: "Tek Cevaplı" },
+  { value: "multiple-choice", label: "Çok Cevaplı" },
   { value: "sorting", label: "Sıralama" },
   { value: "fill-in-the-blank", label: "Açık Uçlu" },
   { value: "true-false", label: "Doğru Yanlış" },

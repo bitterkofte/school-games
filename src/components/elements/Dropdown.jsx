@@ -22,9 +22,9 @@ export const Dropdown = ({ label, options, selected, selector, z }) => {
   }, []);
 
   return (
-    <div className="h-10 relative">
+    <div className="h-10 w-full relative">
       <div
-        className={`relative w-96 overflow-hidden rounded-t-lg select-none transition-all duration-500 cursor-pointer ${
+        className={`relative w-full md:w-96 overflow-hidden rounded-t-lg select-none transition-all duration-500 cursor-pointer ${
           isSelectorOpen ? "pb-88" : ""
         }`}
         ref={dropdownRef}
@@ -39,7 +39,7 @@ export const Dropdown = ({ label, options, selected, selector, z }) => {
           onChange={handleSelectionChange}
           style={{ zIndex: 2 + z }}
         >
-          {selected.label}
+          <span className="truncate">{selected.label}</span>
           <span
             className={`flex items-center transition-all duration-500 ${
               isSelectorOpen
