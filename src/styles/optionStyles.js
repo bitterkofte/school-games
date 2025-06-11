@@ -21,7 +21,7 @@ export const optionStyles = (showAnswer, isSelected, isCorrectAnswer) => {
         : "",
     correct:
       showAnswer && isCorrectAnswer && !isSelected
-        ? "border-green-600 text-green-600 font-bold"
+        ? "border-green-600 text-green-500 font-bold"
         : "",
   };
 };

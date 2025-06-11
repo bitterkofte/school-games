@@ -17,6 +17,7 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { randomizer } from "../../functions/randomizer";
+import { FaArrowsUpDown } from "react-icons/fa6";
 
 const SortableItem = ({ id, text, correctId, index, showAnswer }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
@@ -33,7 +34,7 @@ const SortableItem = ({ id, text, correctId, index, showAnswer }) => {
       {...(!showAnswer ? attributes : {})} // Disable attributes when showAnswer is true
       {...(!showAnswer ? listeners : {})} // Disable listeners when showAnswer is true
       style={style}
-      className={`p-3 z-50 rounded-xl mb-2 text-white shadow select-none hover:cursor-grab active:cursor-grabbing touch-none ${
+      className={`flex items-center gap-3 p-3 z-50 rounded-xl mb-2 text-white shadow select-none hover:cursor-grab active:cursor-grabbing touch-none ${
         !showAnswer
           ? "backdrop-blur-xl bg-neutral-300/10"
           : id === correctId
@@ -41,7 +42,7 @@ const SortableItem = ({ id, text, correctId, index, showAnswer }) => {
           : "border-red-500 bg-red-700/60"
       }`}
     >
-      {text}
+      <FaArrowsUpDown className="text-neutral-300" /> {text}
     </div>
   );
 };

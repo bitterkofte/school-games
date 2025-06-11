@@ -1,19 +1,20 @@
 export const questionFormer = (questionType, questionText, options, answer) => {
   return {
     type: questionType.value,
-    ...(questionType.value === "single-choice" && {
-      text: questionText,
-      options,
-      answer,
-    }),
-    ...(questionType.value === "multiple-choice" && {
-      text: questionText,
-      options: [...options].map((opt, i) => ({
-        id: String.fromCharCode(97 + i),
-        text: opt,
+    // ...(questionType.value === "single-choice" && {
+    //   text: questionText,
+    //   options,
+    //   answer,
+    // }),
+    ...(questionType.value === "single-choice" ||
+      (questionType.value === "multiple-choice" && {
+        text: questionText,
+        options: [...options].map((opt, i) => ({
+          id: String.fromCharCode(97 + i),
+          text: opt,
+        })),
+        answer: answer,
       })),
-      answer: answer,
-    }),
     ...(questionType.value === "sorting" && {
       text: questionText,
       options: options.map((opt, i) => ({

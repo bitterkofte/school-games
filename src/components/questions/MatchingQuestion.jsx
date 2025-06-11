@@ -135,7 +135,9 @@ export default function MatchingQuestion() {
         {/* Dropzones */}
         {question.answer.map((pair, index) => (
           <div key={index} className="flex items-center gap-6">
-            <span className="w-24 font-semibold">{pair.main}</span>
+            <span className="w-24 font-semibold p-3 bg-gray-600/50 rounded-lg">
+              {pair.main}
+            </span>
             <DropZone id={`drop-${index}`}>
               {droppedItems[`drop-${index}`] && (
                 <DraggableItem

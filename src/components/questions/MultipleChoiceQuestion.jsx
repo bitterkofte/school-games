@@ -2,6 +2,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectedHandler } from "../../redux/questionSlice";
 import { optionStyles } from "../../styles/optionStyles";
+import {
+  PiSealCheck,
+  PiSealCheckBold,
+  PiSealCheckFill,
+  PiSealWarningFill,
+} from "react-icons/pi";
 
 const MultipleChoiceQuestion = () => {
   // const [selected, setSelected] = useState([]);
@@ -43,9 +49,18 @@ const MultipleChoiceQuestion = () => {
         return (
           <div
             key={opt.id}
-            className={`${optS.base} ${optS.hoverStyle} ${optS.selectedStyle} ${optS.correctStyle} ${optS.correct} ${optS.incorrectStyle}`}
+            className={`flex items-center gap-3 ${optS.base} ${optS.hoverStyle} ${optS.selectedStyle} ${optS.correctStyle} ${optS.correct} ${optS.incorrectStyle}`}
             onClick={() => toggleOption(opt.id)}
           >
+            {isSelected ? (
+              showAnswer && !isCorrectAnswer ? (
+                <PiSealWarningFill className="text-xl" />
+              ) : (
+                <PiSealCheckFill className="text-xl" />
+              )
+            ) : (
+              <PiSealCheckBold className="text-xl" />
+            )}
             {opt.text}
           </div>
         );

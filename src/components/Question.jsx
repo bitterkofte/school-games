@@ -61,7 +61,13 @@ const Question = () => {
   };
 
   return (
-    <div className="py-5 px-7 lg:py-10 lg:px-16 w-full lg:w-[45rem] mx-auto backdrop-blur-sm bg-white/10 rounded-xl shadow-2xl space-y-4">
+    <div
+      className={`${
+        questions[currentQuestionNo].type === "turkiye-province"
+          ? "w-full lg:w-[calc(100vw*2/3)]"
+          : "w-full lg:w-[45rem]"
+      } py-2 px-3 lg:py-10 lg:px-16 mx-auto backdrop-blur-sm bg-white/10 rounded-xl shadow-2xl space-y-8`}
+    >
       {/* <h2 className="text-3xl font-semibold">
         {currentQuestionNo + 1}. {questions[currentQuestionNo].text}
       </h2> */}

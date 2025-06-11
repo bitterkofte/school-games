@@ -287,7 +287,7 @@ export const sQuestions = [
       { id: "3", text: "22" },
       { id: "4", text: "27" },
     ],
-    answer: ["1", "3", "4", "2"],
+    answer: ["2", "4", "3", "1"],
   },
   {
     type: "sorting",
