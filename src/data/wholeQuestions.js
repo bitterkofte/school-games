@@ -155,7 +155,7 @@ export const scQuestions = [
   },
   {
     type: "single-choice",
-    text: "İstiklal MMarşımızı kim yazmıştır?",
+    text: "İstiklal Marşımızı kim yazmıştır?",
     options: [
       { id: "a", text: "Atatürk" },
       { id: "b", text: "Mehmet Akif Ersoy" },

@@ -6,15 +6,15 @@ export const questionFormer = (questionType, questionText, options, answer) => {
     //   options,
     //   answer,
     // }),
-    ...(questionType.value === "single-choice" ||
-      (questionType.value === "multiple-choice" && {
-        text: questionText,
-        options: [...options].map((opt, i) => ({
-          id: String.fromCharCode(97 + i),
-          text: opt,
-        })),
-        answer: answer,
+    ...((questionType.value === "single-choice" ||
+      questionType.value === "multiple-choice") && {
+      text: questionText,
+      options: [...options].map((opt, i) => ({
+        id: String.fromCharCode(97 + i),
+        text: opt,
       })),
+      answer: answer,
+    }),
     ...(questionType.value === "sorting" && {
       text: questionText,
       options: options.map((opt, i) => ({

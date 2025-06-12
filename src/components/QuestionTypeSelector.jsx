@@ -43,13 +43,14 @@ const QuestionTypeSelector = ({
   //   } else return;
   // }, [options]);
 
-  const answerHandler = (opt) => {
-    if (questionType === "single-choice") setAnswer(opt);
+  const answerHandler = (opt, i) => {
+    const code = String.fromCharCode(97 + i);
+    if (questionType === "single-choice") setAnswer(code);
     else if (questionType === "multiple-choice") {
-      if (answer.includes(opt)) {
-        setAnswer(answer.filter((item) => item !== opt));
+      if (answer.includes(code)) {
+        setAnswer(answer.filter((item) => item !== code));
       } else {
-        setAnswer([...answer, opt]);
+        setAnswer([...answer, code]);
       }
     }
   };
@@ -101,14 +102,15 @@ const QuestionTypeSelector = ({
                 {questionType !== "sorting" && (
                   <button
                     className="cursor-pointer hover:text-green-600 transition-all duration-200 btn-disabled"
-                    onClick={() => answerHandler(opt)}
+                    onClick={() => answerHandler(opt, i)}
                     disabled={
                       isAnyElementSame(options) ||
                       isAnyElementEmpty(options) ||
                       opt.trim() === ""
                     }
                   >
-                    {answer.includes(opt) && opt.trim() !== "" ? (
+                    {answer.includes(String.fromCharCode(97 + i)) &&
+                    opt.trim() !== "" ? (
                       <FaCheckCircle />
                     ) : (
                       <FaRegCircle />
