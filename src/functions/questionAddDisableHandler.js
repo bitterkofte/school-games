@@ -1,4 +1,9 @@
-import { areAllValuesUnique, isAnyElementSame } from "./fineFunctions";
+import {
+  areAllValuesUnique,
+  isAnyElementEmpty,
+  isAnyElementSame,
+  isAnyObjectElementEmpty,
+} from "./fineFunctions";
 
 export function questionAddDisableHandler(
   questionText,
@@ -7,20 +12,21 @@ export function questionAddDisableHandler(
   answer
 ) {
   if (!questionText.trim()) return true;
-  if (
-    ["single-choice", "multiple-choice", "sorting"].includes(
-      questionType.value
-    ) &&
-    isAnyElementSame(options)
-  )
-    return true;
+  // if (
+  //   ["single-choice", "multiple-choice", "sorting"].includes(questionType.value)
+  // )
+  //   return (
+  //     isAnyElementSame(options) || isAnyElementEmpty(options) || !answer.trim()
+  //   );
   else if (questionType.value === "single-choice") {
-    return !options.some((opt) => opt.trim()) || !answer.trim();
+    return (
+      isAnyElementSame(options) || isAnyElementEmpty(options) || !answer.trim()
+    );
   } else if (questionType.value === "multiple-choice") {
     return (
-      !options.some((opt) => opt.trim()) ||
+      isAnyElementEmpty(options) ||
       // !answer.some((a) => a.trim()) ||
-      answer.length < 2
+      answer.length < 1
     );
   } else if (questionType.value === "sorting") {
     return !options.some((opt) => opt.trim());

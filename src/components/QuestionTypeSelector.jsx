@@ -56,9 +56,23 @@ const QuestionTypeSelector = ({
   };
 
   const deleteOptionHandler = (index) => {
-    if (options.length <= 2) return; // Prevent deletion if only 2 options left
-    if (options[index] === answer) {
-      setAnswer(""); // Clear answer if the deleted option was selected
+    console.log("options: ", options, String.fromCharCode(97 + index), answer);
+    // Prevent deletion if only 2 options left
+    if (options.length <= 2) return;
+    // Clear answer if the deleted option was selected
+    if (
+      questionType === "single-choice" &&
+      String.fromCharCode(97 + index) === answer
+    )
+      setAnswer("");
+    if (
+      questionType === "multiple-choice" &&
+      answer.includes(String.fromCharCode(97 + index))
+    ) {
+      const newAnswer = [...answer];
+      setAnswer(
+        newAnswer.filter((item) => item !== String.fromCharCode(97 + index))
+      );
     }
     const newOptions = [...options];
     newOptions.splice(index, 1);
@@ -137,7 +151,7 @@ const QuestionTypeSelector = ({
         >
           <span>Seçenek Ekle</span> <FiPlusCircle />
         </button>
-        <ul className="pl-5 opacity-50 italic list-disc">
+        <ul className="mt-5 pl-5 opacity-50 italic list-disc">
           {questionType === "sorting" && (
             <li>Şıkları cevap sırasında doldurunuz.</li>
           )}

@@ -2,6 +2,10 @@ export const isAnyElementEmpty = (arr) => {
   return arr.some((opt) => opt.trim() === "");
 };
 
+export const isAnyObjectElementEmpty = (arr, prop) => {
+  return arr.some((opt) => opt[prop].trim() === "");
+};
+
 export const isAnyElementSame = (arr) => {
   const uniqueElements = new Set(arr.map((opt) => opt.trim().toLowerCase()));
   return uniqueElements.size !== arr.length;
