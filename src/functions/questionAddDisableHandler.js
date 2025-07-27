@@ -29,7 +29,9 @@ export function questionAddDisableHandler(
       answer.length < 1
     );
   } else if (questionType.value === "sorting") {
-    return !options.some((opt) => opt.trim());
+    return (
+      options.some((opt) => opt.trim() === "") || isAnyElementSame(options)
+    );
   } else if (questionType.value === "matching") {
     return (
       answer.some((pair) => !pair.main.trim() || !pair.pair.trim()) ||

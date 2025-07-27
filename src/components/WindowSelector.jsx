@@ -4,6 +4,7 @@ import QuestionLayout from "./layouts/questionLayout";
 import ResultsLayout from "./layouts/ResultsLayout";
 import LearnLayout from "./layouts/LearnLayout";
 import CreateTestLayout from "./layouts/CreateTestLayout";
+import Navigation from "./Navigation";
 // import { useModal } from "../hooks/useModal";
 // import FineModal from "./elements/FineModal";
 
@@ -42,6 +43,7 @@ const WindowSelector = () => {
       >
         {children}
       </FineModal> */}
+      {window !== "main-menu" && <Navigation />}
       {wS()}
     </>
   );

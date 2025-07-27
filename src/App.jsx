@@ -1,6 +1,8 @@
 import BackgroundParticles from "./components/animated-backgrounds/BackgroundParticles";
 import { Toaster } from "sonner";
 import WindowSelector from "./components/WindowSelector";
+import TextSlideAnimation from "./components/TextSlideAnimation";
+// import Navigation from "./components/Navigation";
 
 function App() {
   return (
@@ -10,6 +12,7 @@ function App() {
         <Toaster position="top-center" richColors className="max-w-[80%]" />
         {/* <Navigation /> */}
         <WindowSelector />
+        {/* <TextSlideAnimation /> */}
       </div>
     </>
   );

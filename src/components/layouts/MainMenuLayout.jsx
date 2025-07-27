@@ -203,12 +203,12 @@ const MainMenuLayout = () => {
             >
               Test Oluştur
             </button>
-            {/* <button
-          onClick={() => dispatch(windowSelector("learn"))}
-          className="bg-lime-700 hover:bg-lime-600 py-2 px-4 rounded-lg shadow-lg hover:scale-105 cursor-pointer transition-all duration-300"
-        >
-          Öğren
-        </button> */}
+            <button
+              onClick={() => dispatch(windowSelector("learn"))}
+              className="bg-lime-700 hover:bg-lime-600 py-2 px-4 rounded-lg shadow-lg hover:scale-105 cursor-pointer transition-all duration-300"
+            >
+              Öğren
+            </button>
           </div>
           {/* # FOOTER */}
           <div className="fixed bottom-5 left-5 text-xs opacity-20 font-bold select-none">

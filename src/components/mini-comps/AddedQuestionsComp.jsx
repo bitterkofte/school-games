@@ -30,10 +30,12 @@ const AddedQuestionsComp = ({ questions, handleDelete }) => {
         ));
       case "sorting":
         return q.options.map((opt, j) => (
-          <li key={j}>
-            {j + 1}
-            {") "}
-            {opt.text}
+          <li key={j} className="flex items-center gap-1">
+            <span className="min-w-4 text-right">
+              {j + 1}
+              {") "}
+            </span>
+            <span>{opt.text}</span>
           </li>
         ));
       case "matching":
@@ -67,28 +69,27 @@ const AddedQuestionsComp = ({ questions, handleDelete }) => {
             className="bg-neutral-800/30 p-3 rounded shadow flex justify-between gap-2"
           >
             <div className="w-full">
-              <div className="w-full flex justify-between items-center mb-2">
+              {/* <div className="w-full flex justify-between items-center mb-2">
                 <p className="text-xl font-bold text-gray-200">
                   {i + 1}. {q.text}
                 </p>
                 <p className="opacity-40 text-sm italic">
                   {questionTypes.find((qt) => qt.value === q.type).label}
                 </p>
-              </div>
-              <ul className="list-discÇ pl-5Ç text-sm text-gray-300 list-none">
-                {/* {q.options.map((opt, j) => (
-                    <li key={j}>{opt.toString()}</li>
-                  ))} */}
+              </div> */}
+              <p className="mb-2 bg-neutral-500/30Ç font-light text-xs italic rounded opacity-40">
+                {questionTypes.find((qt) => qt.value === q.type).label}
+              </p>
+              <p className="text-xl font-bold text-gray-200">
+                {i + 1}. {q.text}
+              </p>
+              <ul className="list-discÇ pl-5 text-sm text-gray-300 list-none">
                 {optionFormer(q)}
               </ul>
-              {/* {optionFormer(q,i)} */}
-              {/* <div className="text-sm text-green-300">
-                Cevap: <strong>{q.answer?.toString()}</strong>
-              </div> */}
             </div>
             <button
               onClick={() => handleDelete(i)}
-              className="text-xl px-1 bg-neutral-600/40 rounded-md text-red-400 hover:text-red-500 hover:bg-red-800/40 cursor-pointer transition-all duration-200"
+              className="text-xl px-1 bg-neutral-600/30 rounded text-red-400 hover:text-red-500 hover:bg-red-800/40 cursor-pointer transition-all duration-200"
             >
               <MdDeleteForever className=" " />
             </button>

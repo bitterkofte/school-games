@@ -230,13 +230,13 @@ const CreateTestLayout = () => {
           questions={questions}
         />
       </div>
-      <FloatingButton
+      {/* <FloatingButton
         position={"top-left"}
         margin={"5"}
         bg={"teal"}
         content={<AiFillHome />}
         action={() => dispatch(windowSelector("main-menu"))}
-      />
+      /> */}
       {/* <div
         onClick={() => {
           toast.dismiss();
