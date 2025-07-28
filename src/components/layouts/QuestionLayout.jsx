@@ -11,7 +11,7 @@ const QuestionLayout = () => {
   const dispatch = useDispatch();
   return (
     <>
-      <div className="fixed top-5 right-5 text-6xl font-extrabold select-none z-40">
+      <div className="animate-revive fixed top-5 right-5 text-6xl font-extrabold select-none z-40">
         <AnimatedNumbers points={points} />
       </div>
       <div className="p-5 fixed top-0 left-0 w-full h-full z-10 flex flex-col items-center justify-center">

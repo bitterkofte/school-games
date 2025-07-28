@@ -125,7 +125,7 @@ const MainMenuLayout = () => {
         {/* # SIDEBAR BUTTON */}
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className={`absolute top-5 left-5 p-2 rounded-lg cursor-pointer transition-all duration-300 ease-in-out z-[40] ${
+          className={`animate-revive absolute top-5 left-5 p-2 rounded-lg cursor-pointer transition-all duration-300 ease-in-out z-[40] ${
             isSidebarOpen
               ? "translate-x-[calc(100vw-4.5rem)] md:translate-x-[calc(24rem-4.5rem)]"
               : "translate-x-0"
@@ -136,7 +136,7 @@ const MainMenuLayout = () => {
 
         {/* @ MENU */}
         <div
-          className={`p-3 w-full h-screen text-white flex-1 flex flex-col items-center justify-center text-center gap-8 transition-transform duration-300 ease-in-out ${
+          className={`animate-revive p-3 w-full h-screen text-white flex-1 flex flex-col items-center justify-center text-center gap-8 transition-transform duration-300 ease-in-out ${
             isSidebarOpen ? "translate-x-96" : "translate-x-0"
           }`}
         >

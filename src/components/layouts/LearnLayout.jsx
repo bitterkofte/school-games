@@ -87,7 +87,7 @@ const LearnLayout = () => {
   };
 
   return (
-    <div className="h-screen p-5 flex flex-col items-center justify-center">
+    <div className="animate-revive h-screen p-5 flex flex-col items-center justify-center">
       <div className="flex justify-center items-center gap-4 mb-4">
         <button
           onClick={() => setContent("turkey-province")}
@@ -105,7 +105,7 @@ const LearnLayout = () => {
         </button>
       </div>
 
-      <div className="w-full lg:h-[30rem] lg:w-[70rem] p-10 bg-white/20 rounded-3xl shadow-2xl backdrop-blur-2xl">
+      <div className="w-full lg:h-[30rem] lg:w-[70rem] p-10 bg-white/20 rounded-3xl shadow-2xl">
         <div className="h-full w-full flex flex-col">
           <DisappearingText
             district={animatedDistrict}

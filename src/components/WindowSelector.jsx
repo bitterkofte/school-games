@@ -43,7 +43,8 @@ const WindowSelector = () => {
       >
         {children}
       </FineModal> */}
-      {window !== "main-menu" && <Navigation />}
+      {/* {window !== "main-menu" && <Navigation />} */}
+      <Navigation />
       {wS()}
     </>
   );

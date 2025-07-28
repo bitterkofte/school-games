@@ -7,7 +7,7 @@ const ResultsLayout = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="h-screen p-4 flex justify-center items-center select-none">
+    <div className="animate-revive h-screen p-4 flex justify-center items-center select-none">
       <div className="p-7 md:py-14 md:px-20 rounded-4xl overflow-hidden font-extrabold text-center backdrop-blur-2xl bg-sky-300/10">
         <h1 className="text-3xl md:text-6xl mb-6">Testi tamamladın!</h1>
         <p className="text-2xl md:text-4xl mb-3">

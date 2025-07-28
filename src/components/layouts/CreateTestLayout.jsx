@@ -148,7 +148,7 @@ const CreateTestLayout = () => {
           placeholder=""
         />
       </FineModal>
-      <div className="max-w-xl mx-5 md:mx-auto my-5 p-8 space-y-6 bg-white/10 backdrop-blur rounded-lg font-[Poppins] shadow-lg">
+      <div className="animate-revive max-w-xl mx-5 md:mx-auto my-5 p-8 space-y-6 bg-white/10 backdrop-blur rounded-lg font-[Poppins] shadow-lg">
         <h2 className="text-3xl font-semibold spacing-wide">Test Oluştur</h2>
 
         <div className="space-y-8">
